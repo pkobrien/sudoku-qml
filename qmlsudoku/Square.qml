@@ -12,7 +12,16 @@ SquareForm {
         onValueAssigned: {
             assigned.text = cell.assigned_value
             assigned.visible = true
-            hint.visible = false
+            hintGrid.visible = false
+        }
+        onHintsChanged: {
+            for (var i = 0; i < 9; i++) {
+                hints[i].hintText.color = "#dddddd"
+            }
+            for (var i = 0; i < cell.hints.length; i++) {
+                var index = cell.hints[i]
+                hints[index].hintText.color = "#000000"
+            }
         }
     }
 
@@ -21,7 +30,10 @@ SquareForm {
         onPuzzleReset: {
             assigned.text = ""
             assigned.visible = false
-            hint.visible = true
+            hintGrid.visible = true
+            for (var i = 0; i < 9; i++) {
+                hints[i].hintText.color = "#000000"
+            }
         }
     }
 }

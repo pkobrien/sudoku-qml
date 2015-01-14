@@ -23,6 +23,7 @@ Rectangle {
             Square {
                 width: box.width / grid.columns
                 height: box.height / grid.rows
+                assigned.text: index + 1
             }
         }
     }

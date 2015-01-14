@@ -3,7 +3,7 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.2
 
 Rectangle {
-    id: hint
+    id: hintGrid
     width: 40
     height: 40
     color: "#00000000"
@@ -21,12 +21,16 @@ Rectangle {
             model: 9
 
             Rectangle {
-                width: hint.width / grid.columns
-                height: hint.height / grid.rows
+                width: hintGrid.width / grid.columns
+                height: hintGrid.height / grid.rows
                 color: "#00000000"
 
+                property alias hintText: hintText
+
                 Text {
-                    text: "0"
+                    id: hintText
+                    text: index + 1
+                    color: "#dddddd"
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }

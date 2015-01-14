@@ -10,11 +10,11 @@ Rectangle {
     border.color: "black"
 
     property alias assigned: assigned
-    property alias hint: hint
-    property alias hints: hint.children
+    property alias hintGrid: hintGrid
+    property alias hints: hintGrid.hints
 
     Hint {
-        id: hint
+        id: hintGrid
         width: parent.width
         height: parent.height
         visible: true

@@ -5,7 +5,7 @@ Main Game and Cell classes for PyQt QML Sudoku.
 Hosted at https://github.com/pkobrien/qml-sudoku
 """
 
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QVariant
 
 import sudoku as su
 
@@ -15,7 +15,7 @@ class Cell(QObject):
     
     This class does not have any UI elements. Instead it emits signals."""
 
-    hintChanged = pyqtSignal()
+    hintsChanged = pyqtSignal()
     valueAssigned = pyqtSignal()
 
     def __init__(self, square):
@@ -29,10 +29,17 @@ class Cell(QObject):
         else:
             return ''
 
+    @pyqtProperty(QVariant)
+    def hints(self):
+        return QVariant([int(digit) - 1 
+                         for digit in self._square.possible_digits])
+
     def _setup(self, square):
         self._square = square
         if self._square.was_assigned:
             self.valueAssigned.emit()
+        else:
+            self.hintsChanged.emit()
 
 
 class Game(QObject):
@@ -42,7 +49,6 @@ class Game(QObject):
 
     puzzleReset = pyqtSignal()
     puzzleSetup = pyqtSignal()
-    squareAssigned = pyqtSignal(int, str, arguments=['index', 'value'])
     
     def __init__(self):
         super(Game, self).__init__()
@@ -58,7 +64,6 @@ class Game(QObject):
 
     @pyqtSlot(int)
     def setup_random_puzzle(self, min_assigned_squares=40):
-        print('puzzleReset.emit')
         self.puzzleReset.emit()
         self._puzzle.setup_random_grid(min_assigned_squares)
         for cell, square in zip(self._cells, self._puzzle.squares):
