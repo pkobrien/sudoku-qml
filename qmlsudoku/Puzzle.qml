@@ -12,10 +12,16 @@ PuzzleForm {
                     for (var y = 0; y < 3; y++) {
                         var box = (i * 3) + x
                         var square = (j * 3) + y
-                        puzzle.squares.push(puzzle.boxes[box].squares[square])
+                        squares.push(boxes[box].squares[square])
                     }
                 }
             }
+        }
+        for (var i = 0; i < squares.length; i++) {
+            var cell = game.get_cell(i)
+            var square = squares[i]
+            square.cell = cell
+            square.cellConnections.target = cell
         }
     }
 
@@ -23,9 +29,5 @@ PuzzleForm {
         target: game
         onPuzzleReset: console.log("TODO Anything?")
         onPuzzleSetup: console.log("TODO Maybe ask the user if they want help?")
-        onSquareAssigned: {
-            puzzle.squares[index].assigned.text = value
-            puzzle.squares[index].assigned.visible = true
-        }
     }
 }
