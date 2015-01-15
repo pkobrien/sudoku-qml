@@ -10,6 +10,7 @@ Rectangle {
     border.color: "black"
 
     property alias assigned: assigned
+    property alias entry: entry
     property alias hintGrid: hintGrid
     property alias hints: hintGrid.hints
 
@@ -29,6 +30,19 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         font.pointSize: 24
         font.bold: true
+        visible: false
+    }
+
+    TextField {
+        id: entry
+        width: parent.width - 4
+        height: parent.height - 4
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        placeholderText: qsTr("?")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pointSize: 22
         visible: true
     }
 }
