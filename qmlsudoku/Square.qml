@@ -6,6 +6,29 @@ SquareForm {
     property var cell
     property alias cellConnections: cellConnections
 
+    entry.onEditingFinished: {
+        console.log("entry.onEditingFinished:", entry.text)
+    }
+
+    entry.onTextChanged: {
+        console.log("entry.onTextChanged:", entry.text)
+        cell.update(entry.text)
+        if (entry.text === "") {
+            entry.visible = false
+            hintGrid.visible = true
+            mouseArea.visible = true
+            mouseArea.focus = true
+        }
+    }
+
+    mouseArea.onClicked: {
+        entry.visible = true
+        entry.selectAll()
+        entry.focus = true
+        hintGrid.visible = false
+        mouseArea.visible = false
+    }
+
     Connections {
         id: cellConnections
         target: null // Will be set to cell at a later point in time.
@@ -14,6 +37,7 @@ SquareForm {
             assigned.visible = true
             entry.visible = false
             hintGrid.visible = false
+            mouseArea.visible = false
         }
         onHintsChanged: {
             for (var i = 0; i < 9; i++) {
@@ -32,11 +56,12 @@ SquareForm {
             assigned.text = ""
             assigned.visible = false
             entry.text = ""
-            entry.visible = true
-            hintGrid.visible = false
+            entry.visible = false
+            hintGrid.visible = true
             for (var i = 0; i < 9; i++) {
                 hints[i].hintText.color = "#000000"
             }
+            mouseArea.visible = true
         }
     }
 }

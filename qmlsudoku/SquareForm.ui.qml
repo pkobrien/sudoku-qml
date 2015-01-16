@@ -13,6 +13,7 @@ Rectangle {
     property alias entry: entry
     property alias hintGrid: hintGrid
     property alias hints: hintGrid.hints
+    property alias mouseArea: mouseArea
 
     Hint {
         id: hintGrid
@@ -37,12 +38,19 @@ Rectangle {
         id: entry
         width: parent.width - 4
         height: parent.height - 4
+        inputMask: "D"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        placeholderText: qsTr("?")
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.pointSize: 22
-        visible: true
+        visible: false
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
+        visible: false
     }
 }

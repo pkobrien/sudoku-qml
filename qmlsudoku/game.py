@@ -18,8 +18,9 @@ class Cell(QObject):
     hintsChanged = pyqtSignal()
     valueAssigned = pyqtSignal()
 
-    def __init__(self, square):
+    def __init__(self, game, square):
         super(Cell, self).__init__()
+        self._game = game
         self._square = square
 
     @pyqtProperty(str)
@@ -33,6 +34,11 @@ class Cell(QObject):
     def hints(self):
         return QVariant([int(digit) - 1 
                          for digit in self._square.possible_digits])
+
+    @pyqtSlot(str)
+    def update(self, text):
+        self._square.update(text)
+        self._game._hints_changed()
 
     def _setup(self, square):
         self._square = square
@@ -55,7 +61,7 @@ class Game(QObject):
         self._puzzle = su.Puzzle()
         self._cells = []
         for square in self._puzzle.squares:
-            self._cells.append(Cell(square))
+            self._cells.append(Cell(self, square))
 
     @pyqtSlot(int, result=QObject)
     def get_cell(self, index):
@@ -69,3 +75,7 @@ class Game(QObject):
         for cell, square in zip(self._cells, self._puzzle.squares):
             cell._setup(square)
         self.puzzleSetup.emit()
+
+    def _hints_changed(self):
+        for cell in self._cells:
+            cell.hintsChanged.emit()
