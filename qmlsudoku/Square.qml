@@ -6,18 +6,18 @@ SquareForm {
     property var cell
     property alias cellConnections: cellConnections
 
-    entry.onEditingFinished: {
-        console.log("entry.onEditingFinished:", entry.text)
+    entry.onFocusChanged: {
+        if (!entry.activeFocus) {
+            if (entry.text === "") {
+                entry.visible = false
+                hintGrid.visible = true
+                mouseArea.visible = true
+            }
+        }
     }
 
     entry.onTextChanged: {
-        console.log("entry.onTextChanged:", entry.text)
         cell.update(entry.text)
-        if (entry.text === "") {
-            entry.visible = false
-            hintGrid.visible = true
-            mouseArea.visible = true
-        }
     }
 
     mouseArea.onClicked: {
