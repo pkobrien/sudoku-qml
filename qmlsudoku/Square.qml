@@ -17,7 +17,6 @@ SquareForm {
             entry.visible = false
             hintGrid.visible = true
             mouseArea.visible = true
-            mouseArea.focus = true
         }
     }
 
@@ -32,13 +31,6 @@ SquareForm {
     Connections {
         id: cellConnections
         target: null // Will be set to cell at a later point in time.
-        onValueAssigned: {
-            assigned.text = cell.assigned_value
-            assigned.visible = true
-            entry.visible = false
-            hintGrid.visible = false
-            mouseArea.visible = false
-        }
         onHintsChanged: {
             for (var i = 0; i < 9; i++) {
                 hints[i].hintText.color = "#dddddd"
@@ -47,6 +39,13 @@ SquareForm {
                 var index = cell.hints[i]
                 hints[index].hintText.color = "#000000"
             }
+        }
+        onValueAssigned: {
+            assigned.text = cell.assigned_value
+            assigned.visible = true
+            entry.visible = false
+            hintGrid.visible = false
+            mouseArea.visible = false
         }
     }
 

@@ -18,7 +18,7 @@ PuzzleForm {
             }
         }
         for (var i = 0; i < squares.length; i++) {
-            var cell = game.get_cell(i)
+            var cell = game.cells[i]
             var square = squares[i]
             square.cell = cell
             square.cellConnections.target = cell
