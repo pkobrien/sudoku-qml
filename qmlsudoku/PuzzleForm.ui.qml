@@ -14,8 +14,7 @@ Rectangle {
 
     Grid {
         id: grid
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.centerIn: parent
         columns: 3
         rows: 3
         spacing: 5

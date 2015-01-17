@@ -36,11 +36,10 @@ Rectangle {
         id: entry
         width: parent.width - 4
         height: parent.height - 4
-        inputMask: "D"
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.centerIn: parent
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        inputMask: "D"
         font.pointSize: 22
         visible: false
     }
