@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.2
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: square
@@ -30,6 +31,18 @@ Rectangle {
         font.pointSize: 24
         font.bold: true
         visible: false
+    }
+
+    DropShadow {
+        id: shadow
+        anchors.fill: assigned
+        color: "#80000000"
+        horizontalOffset: 3
+        verticalOffset: 3
+        radius: 8.0
+        samples: 16
+        source: assigned
+        visible: assigned.visible
     }
 
     TextField {
