@@ -7,7 +7,10 @@ SquareForm {
     property alias cellConnections: cellConnections
 
     entry.onFocusChanged: {
-        if (!entry.activeFocus) {
+        if (entry.activeFocus) {
+            entry.selectAll()
+        }
+        else {
             if (entry.text === "") {
                 entry.visible = false
                 hintGrid.visible = true
@@ -18,12 +21,13 @@ SquareForm {
 
     entry.onTextChanged: {
         cell.update(entry.text)
+        entry.selectAll()
     }
 
     mouseArea.onClicked: {
         entry.visible = true
-        entry.selectAll()
         entry.focus = true
+        entry.selectAll()
         hintGrid.visible = false
         mouseArea.visible = false
     }
