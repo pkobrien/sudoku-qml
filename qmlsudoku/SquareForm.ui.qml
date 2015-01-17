@@ -17,18 +17,16 @@ Rectangle {
 
     Hint {
         id: hintGrid
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         visible: true
     }
 
     Label {
         id: assigned
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         text: "0"
-        verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
         font.pointSize: 24
         font.bold: true
         visible: false
@@ -41,8 +39,8 @@ Rectangle {
         inputMask: "D"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-        verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
         font.pointSize: 22
         visible: false
     }

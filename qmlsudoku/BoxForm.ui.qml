@@ -11,8 +11,6 @@ Rectangle {
 
     Grid {
         id: grid
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
         columns: 3
         rows: 3
         spacing: 0
@@ -23,7 +21,6 @@ Rectangle {
             Square {
                 width: box.width / grid.columns
                 height: box.height / grid.rows
-                assigned.text: index + 1
             }
         }
     }

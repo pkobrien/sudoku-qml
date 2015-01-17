@@ -12,8 +12,6 @@ Rectangle {
 
     Grid {
         id: grid
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
         columns: 3
         rows: 3
 
@@ -31,8 +29,9 @@ Rectangle {
                     id: hintText
                     text: index + 1
                     color: "#dddddd"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                 }
             }
         }
