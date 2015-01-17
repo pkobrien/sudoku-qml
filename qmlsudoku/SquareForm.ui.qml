@@ -19,7 +19,7 @@ Rectangle {
     HintGrid {
         id: hintGrid
         anchors.fill: parent
-        visible: true
+        visible: false
     }
 
     Label {
@@ -75,20 +75,18 @@ Rectangle {
             name: "ENTRY_HIDDEN"
             PropertyChanges {target: assigned; visible: false}
             PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: true}
             PropertyChanges {target: mouseArea; visible: true}
         },
         State {
             name: "ENTRY_SHOWN"
             PropertyChanges {target: assigned; visible: false}
             PropertyChanges {target: entry; visible: true}
-            PropertyChanges {target: hintGrid; visible: false}
             PropertyChanges {target: mouseArea; visible: true}
         },
         State {
             name: "INIT"
-            PropertyChanges {target: assigned; text: ""; visible: false}
-            PropertyChanges {target: entry; text: ""; visible: false}
+            PropertyChanges {target: assigned; visible: false}
+            PropertyChanges {target: entry; visible: false}
             PropertyChanges {target: hintGrid; visible: false}
             PropertyChanges {target: mouseArea; visible: false}
         }

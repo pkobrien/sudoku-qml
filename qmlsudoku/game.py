@@ -52,6 +52,7 @@ class Game(QObject):
     
     This class does not have any UI elements. Instead it emits signals."""
 
+    hintModeChanged = pyqtSignal()
     puzzleReset = pyqtSignal()
     puzzleSetup = pyqtSignal()
     
@@ -62,10 +63,20 @@ class Game(QObject):
         for square in self._puzzle.squares:
             cell = Cell(square)
             self._cells.append(cell)
+        self._show_hints = False
 
     @pyqtProperty(QVariant)
     def cells(self):
         return QVariant(self._cells)
+
+    @pyqtProperty(bool, notify=hintModeChanged)
+    def show_hints(self):
+        return self._show_hints
+
+    @show_hints.setter
+    def show_hints(self, value):
+        self._show_hints = value
+        self.hintModeChanged.emit()
 
     @pyqtSlot(int)
     def setup_random_puzzle(self, min_assigned_squares=40):
