@@ -16,7 +16,7 @@ Rectangle {
     property alias hints: hintGrid.hints
     property alias mouseArea: mouseArea
 
-    Hint {
+    HintGrid {
         id: hintGrid
         anchors.fill: parent
         visible: true
@@ -25,7 +25,6 @@ Rectangle {
     Label {
         id: assigned
         anchors.fill: parent
-        text: "0"
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font.pointSize: 24
@@ -63,4 +62,35 @@ Rectangle {
         cursorShape: Qt.PointingHandCursor
         visible: false
     }
+
+    states: [
+        State {
+            name: "ASSIGNED"
+            PropertyChanges {target: assigned; visible: true}
+            PropertyChanges {target: entry; visible: false}
+            PropertyChanges {target: hintGrid; visible: false}
+            PropertyChanges {target: mouseArea; visible: false}
+        },
+        State {
+            name: "ENTRY_HIDDEN"
+            PropertyChanges {target: assigned; visible: false}
+            PropertyChanges {target: entry; visible: false}
+            PropertyChanges {target: hintGrid; visible: true}
+            PropertyChanges {target: mouseArea; visible: true}
+        },
+        State {
+            name: "ENTRY_SHOWN"
+            PropertyChanges {target: assigned; visible: false}
+            PropertyChanges {target: entry; visible: true}
+            PropertyChanges {target: hintGrid; visible: false}
+            PropertyChanges {target: mouseArea; visible: true}
+        },
+        State {
+            name: "INIT"
+            PropertyChanges {target: assigned; text: ""; visible: false}
+            PropertyChanges {target: entry; text: ""; visible: false}
+            PropertyChanges {target: hintGrid; visible: false}
+            PropertyChanges {target: mouseArea; visible: false}
+        }
+    ]
 }

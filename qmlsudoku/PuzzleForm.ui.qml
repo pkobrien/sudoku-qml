@@ -23,6 +23,7 @@ Rectangle {
             model: 9
 
             Box {
+                id: box
                 width: (puzzle.width - 20) / grid.columns
                 height: (puzzle.height - 20) / grid.rows
             }

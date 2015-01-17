@@ -3,37 +3,34 @@ import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.2
 
 Rectangle {
-    id: hintGrid
-    width: 40
-    height: 40
+    id: hint
+    width: 14
+    height: 14
     color: "#00000000"
 
-    property alias hints: grid.children
+    property alias hintText: hintText
 
-    Grid {
-        id: grid
-        columns: 3
-        rows: 3
-
-        Repeater {
-            model: 9
-
-            Rectangle {
-                width: hintGrid.width / grid.columns
-                height: hintGrid.height / grid.rows
-                color: "#00000000"
-
-                property alias hintText: hintText
-
-                Text {
-                    id: hintText
-                    text: index + 1
-                    color: "#dddddd"
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-            }
-        }
+    Text {
+        id: hintText
+        anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        color: "#cccccc"
+        text: "0"
     }
+
+    states: [
+        State {
+            name: "HIDDEN"
+            PropertyChanges {target: hintText; color: "#dddddd"}
+        },
+        State {
+            name: "INIT"
+            PropertyChanges {target: hintText; color: "#cccccc"}
+        },
+        State {
+            name: "SHOWN"
+            PropertyChanges {target: hintText; color: "#000000"}
+        }
+    ]
 }

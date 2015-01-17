@@ -12,24 +12,24 @@ SquareForm {
         }
         else {
             if (entry.text === "") {
-                entry.visible = false
-                hintGrid.visible = true
-                mouseArea.visible = true
+                state = "ENTRY_HIDDEN"
             }
         }
     }
 
     entry.onTextChanged: {
-        cell.update(entry.text)
-        entry.selectAll()
+        if (!state === "INIT") {
+            cell.update(entry.text)
+            entry.selectAll()
+        }
     }
 
     mouseArea.onClicked: {
-        entry.visible = true
-        entry.focus = true
+        if (state == "ENTRY_HIDDEN") {
+            state = "ENTRY_SHOWN"
+        }
         entry.selectAll()
-        hintGrid.visible = false
-        mouseArea.visible = false
+        entry.focus = true
     }
 
     Connections {
@@ -37,34 +37,27 @@ SquareForm {
         target: null // Will be set to cell at a later point in time.
         onHintsChanged: {
             for (var i = 0; i < 9; i++) {
-                hints[i].hintText.color = "#dddddd"
+                hints[i].state = "HIDDEN"
             }
             for (var i = 0; i < cell.hints.length; i++) {
                 var index = cell.hints[i]
-                hints[index].hintText.color = "#000000"
+                hints[index].state = "SHOWN"
             }
         }
         onValueAssigned: {
+            state = "ASSIGNED"
             assigned.text = cell.assigned_value
-            assigned.visible = true
-            entry.visible = false
-            hintGrid.visible = false
-            mouseArea.visible = false
         }
     }
 
     Connections {
         target: game
         onPuzzleReset: {
-            assigned.text = ""
-            assigned.visible = false
-            entry.text = ""
-            entry.visible = false
-            hintGrid.visible = true
+            state = "INIT"
+            state = "ENTRY_HIDDEN"
             for (var i = 0; i < 9; i++) {
-                hints[i].hintText.color = "#000000"
+                hints[i].state = "INIT"
             }
-            mouseArea.visible = true
         }
     }
 }
