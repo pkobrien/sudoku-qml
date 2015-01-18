@@ -6,6 +6,7 @@ Rectangle {
     id: box
     width: 120
     height: 120
+    color: "#00000000"
 
     property alias squares: grid.children
 

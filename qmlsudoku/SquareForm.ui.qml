@@ -9,6 +9,7 @@ Rectangle {
     height: 40
     border.width: 1
     border.color: "black"
+    color: "#00000000"
 
     property alias assigned: assigned
     property alias entry: entry
@@ -71,19 +72,21 @@ Rectangle {
             name: "ENTRY_HIDDEN"
             PropertyChanges {target: assigned; visible: false}
             PropertyChanges {target: entry; visible: false}
+            PropertyChanges {target: hintGrid; visible: game.show_hints}
             PropertyChanges {target: mouseArea; visible: true}
         },
         State {
             name: "ENTRY_SHOWN"
             PropertyChanges {target: assigned; visible: false}
             PropertyChanges {target: entry; visible: true}
+            PropertyChanges {target: hintGrid; visible: false}
             PropertyChanges {target: mouseArea; visible: true}
         },
         State {
             name: "INIT"
             PropertyChanges {target: assigned; visible: false}
             PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: false}
+            PropertyChanges {target: hintGrid; visible: game.show_hints}
             PropertyChanges {target: mouseArea; visible: false}
         }
     ]

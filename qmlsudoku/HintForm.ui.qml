@@ -22,7 +22,7 @@ Rectangle {
     states: [
         State {
             name: "HIDDEN"
-            PropertyChanges {target: hintText; color: "#dddddd"}
+            PropertyChanges {target: hintText; color: "#cccccc"}
         },
         State {
             name: "INIT"

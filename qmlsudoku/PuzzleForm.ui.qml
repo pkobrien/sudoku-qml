@@ -6,9 +6,12 @@ Rectangle {
     id: puzzle
     width: 380
     height: 380
-    color: "#000000"
-    border.color: "#000000"
+    border.color: "black"
     border.width: 5
+    gradient: Gradient {
+        GradientStop { position: 0.0; color: "white" }
+        GradientStop { position: 1.0; color: "#dddddd" }
+    }
 
     property alias boxes: grid.children
 
@@ -17,15 +20,16 @@ Rectangle {
         anchors.centerIn: parent
         columns: 3
         rows: 3
-        spacing: 5
 
         Repeater {
             model: 9
 
             Box {
                 id: box
-                width: (puzzle.width - 20) / grid.columns
-                height: (puzzle.height - 20) / grid.rows
+                width: (puzzle.width - 10) / grid.columns
+                height: (puzzle.height - 10) / grid.rows
+                border.color: "black"
+                border.width: 2
             }
         }
     }

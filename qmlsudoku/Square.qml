@@ -54,8 +54,6 @@ SquareForm {
     Connections {
         target: game
         onHintModeChanged: {
-            if (state != "ASSIGNED")
-                hintGrid.visible = game.show_hints;
             if (game.show_hints) {
                 if ((entry.text != "") && (entry.text != cell.solved_value))
                     entry.state = "WRONG-ANSWER";
@@ -70,10 +68,11 @@ SquareForm {
             assigned.text = "";
             entry.text = "";
             state = "ENTRY_HIDDEN";
-            hintGrid.visible = game.show_hints;
             for (var i = 0; i < 9; i++) {
                 hints[i].state = "INIT";
             }
         }
     }
+
+    Component.onCompleted: {state = "INIT";}
 }
