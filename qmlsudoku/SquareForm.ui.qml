@@ -44,15 +44,11 @@ Rectangle {
         visible: assigned.visible
     }
 
-    TextField {
+    Entry {
         id: entry
         width: parent.width - 4
         height: parent.height - 4
         anchors.centerIn: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        inputMask: "D"
-        font.pointSize: 22
         visible: false
     }
 

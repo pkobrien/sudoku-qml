@@ -42,6 +42,10 @@ class Cell(QObject):
         return QVariant([int(digit) - 1 
                          for digit in self._square.possible_digits])
 
+    @pyqtProperty(str)
+    def solved_value(self):
+        return self._square.solved_value or ''
+
     @pyqtSlot(str)
     def update(self, text):
         self._square.update(text)

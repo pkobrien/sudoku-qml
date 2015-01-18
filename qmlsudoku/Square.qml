@@ -22,6 +22,14 @@ SquareForm {
             cell.update(entry.text)
             entry.selectAll()
         }
+        if (game.show_hints) {
+            if ((entry.text != "") && (entry.text != cell.solved_value)) {
+                entry.state = "WRONG-ANSWER"
+            }
+            else {
+                entry.state = ""
+            }
+        }
     }
 
     mouseArea.onClicked: {
@@ -55,6 +63,17 @@ SquareForm {
         onHintModeChanged: {
             if (state != "ASSIGNED") {
                 hintGrid.visible = game.show_hints
+            }
+            if (game.show_hints) {
+                if ((entry.text != "") && (entry.text != cell.solved_value)) {
+                    entry.state = "WRONG-ANSWER"
+                }
+                else {
+                    entry.state = ""
+                }
+            }
+            else {
+                entry.state = ""
             }
         }
         onPuzzleReset: {
