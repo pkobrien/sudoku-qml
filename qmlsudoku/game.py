@@ -19,10 +19,11 @@ class Cell(QObject):
     valueAssigned = pyqtSignal()
     valueChanged = pyqtSignal()
 
-    def __init__(self, square):
+    def __init__(self, game, square):
         super(Cell, self).__init__()
+        self._game = game
         self._square = square
-        square.possible_digits_changed.connect(self.hintsChanged.emit)
+        square.possible_digits_changed.connect(self._hints_changed)
         square.value_assigned.connect(self.valueAssigned.emit)
         square.value_changed.connect(self.valueChanged.emit)
 
@@ -48,7 +49,13 @@ class Cell(QObject):
 
     @pyqtSlot(str)
     def update(self, text):
+        """Update square with the value of text."""
         self._square.update(text)
+
+    def _hints_changed(self):
+        """Emit hintsChanged when game is not in setup mode."""
+        if not self._game.setup_mode:
+            self.hintsChanged.emit()
 
 
 class Game(QObject):
@@ -62,10 +69,11 @@ class Game(QObject):
     
     def __init__(self):
         super(Game, self).__init__()
+        self.setup_mode = False
         self._puzzle = su.Puzzle()
         self._cells = []
         for square in self._puzzle.squares:
-            cell = Cell(square)
+            cell = Cell(self, square)
             self._cells.append(cell)
         self._show_hints = False
 
@@ -83,7 +91,15 @@ class Game(QObject):
         self.hintModeChanged.emit()
 
     @pyqtSlot(int)
-    def setup_random_puzzle(self, min_assigned_squares=40):
+    def setup_random_puzzle(self, min_assigned_squares):
+        """Setup a random puzzle with a minimum number of assigned squares."""
+        self.setup_mode = True
         self.puzzleReset.emit()
         self._puzzle.setup_random_grid(min_assigned_squares)
+        self.setup_mode = False
+        for cell in self._cells:
+            # It's faster if we wait until the puzzle is set up, then emit
+            # this signal for all cells that were not assigned a value.
+            if not cell.assigned_value:
+                cell.hintsChanged.emit()
         self.puzzleSetup.emit()
