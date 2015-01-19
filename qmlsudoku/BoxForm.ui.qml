@@ -6,8 +6,11 @@ Rectangle {
     id: box
     width: 120
     height: 120
-    color: "#00000000"
+    border.width: 3
+    border.color: "black"
+    color: "transparent"
 
+    property bool isCurrent: false
     property alias squares: grid.children
 
     Grid {
@@ -25,4 +28,12 @@ Rectangle {
             }
         }
     }
+
+    states: [
+        State {
+            name: "HIGHLIGHTED"
+            when: (isCurrent && game.show_hints)
+            PropertyChanges {target: box; border.color: "yellow"}
+        }
+    ]
 }

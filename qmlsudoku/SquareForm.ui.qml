@@ -9,7 +9,7 @@ Rectangle {
     height: 40
     border.width: 1
     border.color: "black"
-    color: "#00000000"
+    color: "transparent"
 
     property alias assigned: assigned
     property alias entry: entry
@@ -47,8 +47,8 @@ Rectangle {
 
     Entry {
         id: entry
-        width: parent.width - 4
-        height: parent.height - 4
+        width: parent.width
+        height: parent.height
         anchors.centerIn: parent
         visible: false
     }

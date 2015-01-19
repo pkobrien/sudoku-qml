@@ -3,16 +3,42 @@ import QtQuick 2.4
 PuzzleForm {
     id: puzzle
 
+    property var currentBox
+    property var currentSquare
     property var squares: []
+
+    signal squareActivated(Square square)
+    signal squareDeactivated(Square square)
+
+    onSquareActivated: {
+        currentSquare = square;
+        var box = boxes[square.cell.box];
+        currentBox = box;
+        box.isCurrent = true;
+    }
+
+    onSquareDeactivated: {
+        if (square == currentSquare) {
+            currentBox.isCurrent = false;
+            currentBox = undefined;
+            currentSquare = undefined;
+        }
+        else {
+            var box = boxes[square.cell.box];
+            if (box != currentBox)
+                box.isCurrent = false;
+
+        }
+    }
 
     Component.onCompleted: {
         for (var i = 0; i < 3; i++) {
             for (var j = 0; j < 3; j++) {
                 for (var x = 0; x < 3; x++) {
                     for (var y = 0; y < 3; y++) {
-                        var box = (i * 3) + x;
-                        var square = (j * 3) + y;
-                        squares.push(boxes[box].squares[square]);
+                        var boxIndex = (i * 3) + x;
+                        var squareIndex = (j * 3) + y;
+                        squares.push(boxes[boxIndex].squares[squareIndex]);
                     }
                 }
             }
@@ -22,6 +48,18 @@ PuzzleForm {
             var square = squares[i];
             square.cell = cell;
             square.cellConnections.target = cell;
+            square.index = i;
+            square.activated.connect(squareActivated);
+            square.deactivated.connect(squareDeactivated);
+        }
+    }
+
+    Connections {
+        target: game
+        onPuzzleReset: {
+            if (currentBox != undefined)
+                currentBox.isCurrent = false;
+            currentBox = undefined;
         }
     }
 }

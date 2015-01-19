@@ -34,6 +34,10 @@ class Cell(QObject):
         else:
             return ''
 
+    @pyqtProperty(int)
+    def box(self):
+        return self._square.box.number - 1
+
     @pyqtProperty(str)
     def current_value(self):
         return self._square.current_value or ''

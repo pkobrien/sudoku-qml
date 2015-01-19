@@ -5,12 +5,21 @@ SquareForm {
 
     property var cell
     property alias cellConnections: cellConnections
+    property int index
+
+    signal activated(var square)
+    signal deactivated(var square)
 
     entry.onFocusChanged: {
-        if (entry.activeFocus)
+        if (entry.activeFocus) {
             entry.selectAll();
-        else if (entry.text == "")
-            state = "ENTRY_HIDDEN";
+            activated(square);
+        }
+        else {
+            if (entry.text == "")
+                state = "ENTRY_HIDDEN";
+            deactivated(square);
+        }
     }
 
     entry.onTextChanged: {
@@ -32,6 +41,8 @@ SquareForm {
         entry.selectAll();
         entry.focus = true;
     }
+
+    Component.onCompleted: {state = "INIT";}
 
     Connections {
         id: cellConnections
@@ -73,6 +84,4 @@ SquareForm {
             }
         }
     }
-
-    Component.onCompleted: {state = "INIT";}
 }

@@ -28,8 +28,6 @@ Rectangle {
                 id: box
                 width: (puzzle.width - 10) / grid.columns
                 height: (puzzle.height - 10) / grid.rows
-                border.color: "black"
-                border.width: 2
             }
         }
     }
