@@ -12,19 +12,19 @@ ApplicationWindow {
     Action {
         id: newEasyPuzzleAction
         text: qsTr("New Easy Puzzle")
-        onTriggered: game.setup_random_puzzle(50)
+        onTriggered: game.setup_random_puzzle(50);
     }
 
     Action {
         id: newMediumPuzzleAction
         text: qsTr("New Medium Puzzle")
-        onTriggered: game.setup_random_puzzle(40)
+        onTriggered: game.setup_random_puzzle(40);
     }
 
     Action {
         id: newHardPuzzleAction
         text: qsTr("New Hard Puzzle")
-        onTriggered: game.setup_random_puzzle(30)
+        onTriggered: game.setup_random_puzzle(30);
     }
 
     menuBar: MenuBar {
@@ -36,7 +36,7 @@ ApplicationWindow {
             MenuItem {
                 text: qsTr("E&xit")
                 shortcut: StandardKey.Quit
-                onTriggered: Qt.quit()
+                onTriggered: Qt.quit();
             }
         }
     }
@@ -52,10 +52,10 @@ ApplicationWindow {
             CheckBox {
                 id: showHints
                 text: "Show Hints"
-                checked: false
-                onClicked: game.show_hints = showHints.checked
+                onClicked: game.show_hints = showHints.checked;
             }
         }
+        Component.onCompleted: showHints.checked = game.show_hints;
     }
 
     Puzzle {

@@ -30,9 +30,9 @@ PuzzleForm {
             currentBox.isCurrent = false;
             currentBox = undefined;
             currentRow.isCurrent = false;
-            currentColumn = undefined;
-            currentColumn.isCurrent = false;
             currentRow = undefined;
+            currentColumn.isCurrent = false;
+            currentColumn = undefined;
             currentSquare = undefined;
         }
         else {
