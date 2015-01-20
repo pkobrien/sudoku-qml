@@ -42,8 +42,6 @@ SquareForm {
         entry.focus = true;
     }
 
-    Component.onCompleted: {state = "INIT";}
-
     Connections {
         id: cellConnections
         target: null // Will be set to cell at a later point in time.

@@ -14,4 +14,11 @@ TextField {
             color: "#00000000"
         }
     }
+
+    states: [
+        State {
+            name: "WRONG-ANSWER"
+            PropertyChanges {target: entry; font.underline: true}
+        }
+    ]
 }

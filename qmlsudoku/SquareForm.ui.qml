@@ -10,6 +10,7 @@ Rectangle {
     border.width: 1
     border.color: "black"
     color: "transparent"
+    state: "INIT"
 
     property alias assigned: assigned
     property alias entry: entry
