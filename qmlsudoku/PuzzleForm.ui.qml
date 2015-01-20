@@ -14,6 +14,8 @@ Rectangle {
     }
 
     property alias boxes: grid.children
+    property alias columns: rowOfColumns.children
+    property alias rows: columnOfRows.children
 
     Grid {
         id: grid
@@ -26,8 +28,40 @@ Rectangle {
 
             Box {
                 id: box
-                width: (puzzle.width - 10) / grid.columns
-                height: (puzzle.height - 10) / grid.rows
+                width: (puzzle.width - (puzzle.border.width * 2)) / grid.columns
+                height: (puzzle.height - (puzzle.border.width * 2)) / grid.rows
+            }
+        }
+    }
+
+    Column {
+        id: columnOfRows
+        anchors.centerIn: parent
+        spacing: -8
+
+        Repeater {
+            model: 9
+
+            PuzzleRow {
+                id: row
+                width: puzzle.width - (puzzle.border.width * 2)
+                height: (puzzle.height - (puzzle.border.width * 2) + 72) / 9
+            }
+        }
+    }
+
+    Row {
+        id: rowOfColumns
+        anchors.centerIn: parent
+        spacing: -8
+
+        Repeater {
+            model: 9
+
+            PuzzleColumn {
+                id: column
+                width: (puzzle.width - (puzzle.border.width * 2) + 72) / 9
+                height: puzzle.height - (puzzle.border.width * 2)
             }
         }
     }

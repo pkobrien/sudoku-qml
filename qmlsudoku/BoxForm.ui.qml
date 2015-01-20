@@ -15,6 +15,7 @@ Rectangle {
 
     Grid {
         id: grid
+        anchors.centerIn: parent
         columns: 3
         rows: 3
         spacing: 0
@@ -23,8 +24,8 @@ Rectangle {
             model: 9
 
             Square {
-                width: box.width / grid.columns
-                height: box.height / grid.rows
+                width: (box.width - (box.border.width * 2)) / grid.columns
+                height: (box.height - (box.border.width * 2)) / grid.rows
             }
         }
     }

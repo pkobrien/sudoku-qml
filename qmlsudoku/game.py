@@ -38,6 +38,10 @@ class Cell(QObject):
     def box(self):
         return self._square.box.number - 1
 
+    @pyqtProperty(int)
+    def column(self):
+        return self._square.column.number - 1
+
     @pyqtProperty(str)
     def current_value(self):
         return self._square.current_value or ''
@@ -46,6 +50,10 @@ class Cell(QObject):
     def hints(self):
         return QVariant([int(digit) - 1 
                          for digit in self._square.possible_digits])
+
+    @pyqtProperty(int)
+    def row(self):
+        return self._square.row.number - 1
 
     @pyqtProperty(str)
     def solved_value(self):

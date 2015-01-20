@@ -4,6 +4,8 @@ PuzzleForm {
     id: puzzle
 
     property var currentBox
+    property var currentColumn
+    property var currentRow
     property var currentSquare
     property var squares: []
 
@@ -15,19 +17,34 @@ PuzzleForm {
         var box = boxes[square.cell.box];
         currentBox = box;
         box.isCurrent = true;
+        var column = columns[square.cell.column];
+        currentColumn = column;
+        column.isCurrent = true;
+        var row = rows[square.cell.row];
+        currentRow = row;
+        row.isCurrent = true;
     }
 
     onSquareDeactivated: {
         if (square == currentSquare) {
             currentBox.isCurrent = false;
             currentBox = undefined;
+            currentRow.isCurrent = false;
+            currentColumn = undefined;
+            currentColumn.isCurrent = false;
+            currentRow = undefined;
             currentSquare = undefined;
         }
         else {
             var box = boxes[square.cell.box];
             if (box != currentBox)
                 box.isCurrent = false;
-
+            var column = columns[square.cell.column];
+            if (column != currentColumn)
+                column.isCurrent = false;
+            var row = rows[square.cell.row];
+            if (row != currentRow)
+                row.isCurrent = false;
         }
     }
 
@@ -60,6 +77,12 @@ PuzzleForm {
             if (currentBox != undefined)
                 currentBox.isCurrent = false;
             currentBox = undefined;
+            if (currentColumn != undefined)
+                currentColumn.isCurrent = false;
+            currentColumn = undefined;
+            if (currentRow != undefined)
+                currentRow.isCurrent = false;
+            currentRow = undefined;
         }
     }
 }
