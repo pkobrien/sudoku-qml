@@ -17,7 +17,7 @@ SquareForm {
         }
         else {
             if (entry.text == "")
-                state = "ENTRY_HIDDEN";
+                state = "ENTRY-HIDDEN";
             deactivated(square);
         }
     }
@@ -36,8 +36,8 @@ SquareForm {
     }
 
     mouseArea.onClicked: {
-        if (state == "ENTRY_HIDDEN")
-            state = "ENTRY_SHOWN";
+        if (state == "ENTRY-HIDDEN")
+            state = "ENTRY-SHOWN";
         entry.selectAll();
         entry.focus = true;
     }
@@ -56,7 +56,6 @@ SquareForm {
         }
         onValueAssigned: {
             state = "ASSIGNED";
-            assigned.text = cell.assigned_value;
         }
     }
 
@@ -74,12 +73,25 @@ SquareForm {
         }
         onPuzzleReset: {
             state = "INIT";
-            assigned.text = "";
+            solution.text = "";
             entry.text = "";
-            state = "ENTRY_HIDDEN";
+            state = "ENTRY-HIDDEN";
             for (var i = 0; i < 9; i++) {
                 hints[i].state = "INIT";
             }
         }
+        onPuzzleSetup: {
+            solution.text = cell.solved_value;
+        }
+        onPuzzleSolved: {
+            state = "PUZZLE-SOLVED";
+        }
     }
+
+    transitions: [
+        Transition {
+            from: "*"; to: "PUZZLE-SOLVED"
+            ColorAnimation { target: solution; properties: "color"; duration: 2000 }
+        }
+    ]
 }

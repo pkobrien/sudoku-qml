@@ -84,5 +84,8 @@ PuzzleForm {
                 currentRow.isCurrent = false;
             currentRow = undefined;
         }
+        onPuzzleSolved: {
+            squareDeactivated(currentSquare);
+        }
     }
 }

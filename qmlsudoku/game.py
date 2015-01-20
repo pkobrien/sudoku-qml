@@ -63,6 +63,8 @@ class Cell(QObject):
     def update(self, text):
         """Update square with the value of text."""
         self._square.update(text)
+        if self._game.is_solved:
+            self._game.puzzleSolved.emit()
 
     def _hints_changed(self):
         """Emit hintsChanged when game is not in setup mode."""
@@ -78,7 +80,8 @@ class Game(QObject):
     hintModeChanged = pyqtSignal()
     puzzleReset = pyqtSignal()
     puzzleSetup = pyqtSignal()
-    
+    puzzleSolved = pyqtSignal()
+
     def __init__(self):
         super(Game, self).__init__()
         self.setup_mode = False
@@ -92,6 +95,10 @@ class Game(QObject):
     @pyqtProperty(QVariant)
     def cells(self):
         return QVariant(self._cells)
+
+    @pyqtProperty(bool)
+    def is_solved(self):
+        return self._puzzle.is_solved
 
     @pyqtProperty(bool, notify=hintModeChanged)
     def show_hints(self):

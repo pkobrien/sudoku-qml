@@ -12,11 +12,11 @@ Rectangle {
     color: "transparent"
     state: "INIT"
 
-    property alias assigned: assigned
     property alias entry: entry
     property alias hintGrid: hintGrid
     property alias hints: hintGrid.hints
     property alias mouseArea: mouseArea
+    property alias solution: solution
 
     HintGrid {
         id: hintGrid
@@ -25,7 +25,7 @@ Rectangle {
     }
 
     Label {
-        id: assigned
+        id: solution
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -36,14 +36,14 @@ Rectangle {
 
     DropShadow {
         id: shadow
-        anchors.fill: assigned
+        anchors.fill: solution
         color: "#80000000"
         horizontalOffset: 3
         verticalOffset: 3
         radius: 8.0
         samples: 16
-        source: assigned
-        visible: assigned.visible
+        source: solution
+        visible: solution.visible
     }
 
     Entry {
@@ -64,31 +64,38 @@ Rectangle {
     states: [
         State {
             name: "ASSIGNED"
-            PropertyChanges {target: assigned; visible: true}
             PropertyChanges {target: entry; visible: false}
             PropertyChanges {target: hintGrid; visible: false}
             PropertyChanges {target: mouseArea; visible: false}
+            PropertyChanges {target: solution; visible: true}
         },
         State {
-            name: "ENTRY_HIDDEN"
-            PropertyChanges {target: assigned; visible: false}
+            name: "ENTRY-HIDDEN"
             PropertyChanges {target: entry; visible: false}
             PropertyChanges {target: hintGrid; visible: game.show_hints}
             PropertyChanges {target: mouseArea; visible: true}
+            PropertyChanges {target: solution; visible: false}
         },
         State {
-            name: "ENTRY_SHOWN"
-            PropertyChanges {target: assigned; visible: false}
+            name: "ENTRY-SHOWN"
             PropertyChanges {target: entry; visible: true}
             PropertyChanges {target: hintGrid; visible: false}
             PropertyChanges {target: mouseArea; visible: true}
+            PropertyChanges {target: solution; visible: false}
         },
         State {
             name: "INIT"
-            PropertyChanges {target: assigned; visible: false}
             PropertyChanges {target: entry; visible: false}
             PropertyChanges {target: hintGrid; visible: game.show_hints}
             PropertyChanges {target: mouseArea; visible: false}
+            PropertyChanges {target: solution; visible: false}
+        },
+        State {
+            name: "PUZZLE-SOLVED"
+            PropertyChanges {target: entry; visible: false}
+            PropertyChanges {target: hintGrid; visible: false}
+            PropertyChanges {target: mouseArea; visible: false}
+            PropertyChanges {target: solution; visible: true; color: "darkred"}
         }
     ]
 }
