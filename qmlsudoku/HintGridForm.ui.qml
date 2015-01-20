@@ -14,14 +14,15 @@ Rectangle {
         id: grid
         columns: 3
         rows: 3
+        anchors.centerIn: parent
 
         Repeater {
             model: 9
 
             Hint {
                 id: hint
-                width: hintGrid.width / grid.columns
-                height: hintGrid.height / grid.rows
+                width: (hintGrid.width - 4) / grid.columns
+                height: (hintGrid.height - 4) / grid.rows
                 hintText.text: index + 1
             }
         }
