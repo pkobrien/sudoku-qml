@@ -54,9 +54,6 @@ SquareForm {
                 hints[index].state = "SHOWN";
             }
         }
-        onValueAssigned: {
-            state = "ASSIGNED";
-        }
     }
 
     Connections {
@@ -82,6 +79,8 @@ SquareForm {
         }
         onPuzzleSetup: {
             solution.text = cell.solved_value;
+            if (cell.was_assigned)
+                state = "ASSIGNED";
         }
         onPuzzleSolved: {
             state = "PUZZLE-SOLVED";

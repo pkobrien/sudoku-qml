@@ -16,23 +16,12 @@ class Cell(QObject):
     This class does not have any UI elements. Instead it emits signals."""
 
     hintsChanged = pyqtSignal()
-    valueAssigned = pyqtSignal()
-    valueChanged = pyqtSignal()
 
     def __init__(self, game, square):
         super(Cell, self).__init__()
         self._game = game
         self._square = square
         square.possible_digits_changed.connect(self._hints_changed)
-        square.value_assigned.connect(self.valueAssigned.emit)
-        square.value_changed.connect(self.valueChanged.emit)
-
-    @pyqtProperty(str)
-    def assigned_value(self):
-        if self._square.was_assigned:
-            return self._square.solved_value
-        else:
-            return ''
 
     @pyqtProperty(int)
     def box(self):
@@ -41,10 +30,6 @@ class Cell(QObject):
     @pyqtProperty(int)
     def column(self):
         return self._square.column.number - 1
-
-    @pyqtProperty(str)
-    def current_value(self):
-        return self._square.current_value or ''
 
     @pyqtProperty(QVariant)
     def hints(self):
@@ -58,6 +43,10 @@ class Cell(QObject):
     @pyqtProperty(str)
     def solved_value(self):
         return self._square.solved_value or ''
+
+    @pyqtProperty(bool)
+    def was_assigned(self):
+        return self._square.was_assigned
 
     @pyqtSlot(str)
     def update(self, text):
@@ -119,6 +108,6 @@ class Game(QObject):
         for cell in self._cells:
             # It's faster if we wait until the puzzle is set up, then emit
             # this signal for all cells that were not assigned a value.
-            if not cell.assigned_value:
+            if not cell.was_assigned:
                 cell.hintsChanged.emit()
         self.puzzleSetup.emit()
