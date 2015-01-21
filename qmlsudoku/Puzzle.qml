@@ -83,6 +83,7 @@ PuzzleForm {
             if (currentRow != undefined)
                 currentRow.isCurrent = false;
             currentRow = undefined;
+            currentSquare = undefined;
         }
         onPuzzleSolved: {
             squareDeactivated(currentSquare);

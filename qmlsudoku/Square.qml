@@ -72,6 +72,7 @@ SquareForm {
             state = "INIT";
             solution.text = "";
             entry.text = "";
+            entry.focus = false;
             state = "ENTRY-HIDDEN";
             for (var i = 0; i < 9; i++) {
                 hints[i].state = "INIT";
