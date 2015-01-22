@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Main application for PyQt QML Sudoku.
+Main application for Sudoku using PyQt and QML.
 
-Hosted at https://github.com/pkobrien/qml-sudoku
+Hosted at https://github.com/pkobrien/sudoku-qml
 """
 
 from PyQt5.QtGui import QGuiApplication

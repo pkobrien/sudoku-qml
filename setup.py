@@ -4,7 +4,7 @@ from setuptools import setup
 from codecs import open
 from os import path
 
-import qmlsudoku
+import sudokuqml
 
 here = path.abspath(path.dirname(__file__))
 
@@ -13,15 +13,15 @@ here = path.abspath(path.dirname(__file__))
 #     long_description = f.read()
 
 setup(
-    name='QMLSudoku',
+    name='SudokuQML',
 
-    version=qmlsudoku.__version__,
+    version=sudokuqml.__version__,
 
-    description='PyQt QML Sudoku',
+    description='Sudoku',
     # long_description=long_description,
-    long_description='PyQt QML Sudoku.',
+    long_description='Sudoku puzzle game using PyQt and QML',
 
-    url='https://github.com/pkobrien/qml-sudoku',
+    url='https://github.com/pkobrien/sudoku-qml',
 
     author="Patrick K. O'Brien",
     author_email='patrick.keith.obrien@gmail.com',
@@ -40,7 +40,7 @@ setup(
         'Topic :: Games/Entertainment :: Puzzle Games',
     ],
 
-    keywords='pyqt qml sudoku',
+    keywords='pyqt qml qt sudoku',
 
     extras_require={
         'test': ['pytest'],
