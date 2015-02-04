@@ -10,7 +10,6 @@ Rectangle {
     border.width: 1
     border.color: "black"
     color: "transparent"
-    state: "INIT"
 
     property alias entry: entry
     property alias hintGrid: hintGrid
@@ -89,6 +88,7 @@ Rectangle {
             PropertyChanges {target: hintGrid; visible: game.show_hints}
             PropertyChanges {target: mouseArea; visible: false}
             PropertyChanges {target: solution; visible: false}
+            PropertyChanges {target: square; y: 0 - (square.height * 8)}
         },
         State {
             name: "PUZZLE-SOLVED"

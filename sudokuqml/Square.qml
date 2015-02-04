@@ -16,19 +16,19 @@ SquareForm {
             activated(square);
         }
         else {
-            if (entry.text == "")
+            if (entry.text === "")
                 state = "ENTRY-HIDDEN";
             deactivated(square);
         }
     }
 
     entry.onTextChanged: {
-        if (state != "INIT") {
+        if (state !== "INIT") {
             cell.update(entry.text);
             entry.selectAll();
         }
         if (game.show_hints) {
-            if ((entry.text != "") && (entry.text != cell.solved_value))
+            if ((entry.text !== "") && (entry.text !== cell.solved_value))
                 entry.state = "WRONG-ANSWER";
             else
                 entry.state = "";
@@ -36,7 +36,7 @@ SquareForm {
     }
 
     mouseArea.onClicked: {
-        if (state == "ENTRY-HIDDEN")
+        if (state === "ENTRY-HIDDEN")
             state = "ENTRY-SHOWN";
         entry.selectAll();
         entry.focus = true;
@@ -60,7 +60,7 @@ SquareForm {
         target: game
         onHintModeChanged: {
             if (game.show_hints) {
-                if ((entry.text != "") && (entry.text != cell.solved_value))
+                if ((entry.text !== "") && (entry.text !== cell.solved_value))
                     entry.state = "WRONG-ANSWER";
                 else
                     entry.state = "";
@@ -89,6 +89,15 @@ SquareForm {
     }
 
     transitions: [
+        Transition {
+            from: "INIT"; to: "*"
+            NumberAnimation {
+                target: square
+                property: "y"
+                duration: (Math.random() * 500) + 500
+                easing.type: Easing.InOutBounce
+            }
+        },
         Transition {
             from: "*"; to: "PUZZLE-SOLVED"
             ColorAnimation { target: solution; properties: "color"; duration: 2000 }
