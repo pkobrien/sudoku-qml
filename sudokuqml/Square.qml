@@ -92,9 +92,10 @@ SquareForm {
         Transition {
             from: "INIT"; to: "*"
             NumberAnimation {
+                id: squareAnimationX
                 target: square
                 property: "y"
-                duration: (Math.random() * 500) + 500
+                duration: 500
                 easing.type: Easing.InOutBounce
             }
         },
