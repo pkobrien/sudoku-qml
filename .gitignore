@@ -2,6 +2,7 @@
 *.pri
 *.pro
 *.pro.user
+*.qmlproject.user
 
 # Spyder Python IDE
 .spyderproject

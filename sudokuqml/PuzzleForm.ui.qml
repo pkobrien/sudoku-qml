@@ -15,6 +15,7 @@ Rectangle {
 
     property alias boxes: grid.children
     property alias columns: rowOfColumns.children
+    property alias grid: grid
     property alias rows: columnOfRows.children
 
     Grid {
@@ -22,16 +23,6 @@ Rectangle {
         anchors.centerIn: parent
         columns: 3
         rows: 3
-
-        Repeater {
-            model: 9
-
-            Box {
-                id: box
-                width: (puzzle.width - (puzzle.border.width * 2)) / grid.columns
-                height: (puzzle.height - (puzzle.border.width * 2)) / grid.rows
-            }
-        }
     }
 
     Column {

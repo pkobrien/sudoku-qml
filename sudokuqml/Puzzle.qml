@@ -26,7 +26,7 @@ PuzzleForm {
     }
 
     onSquareDeactivated: {
-        if (square == currentSquare) {
+        if (square === currentSquare) {
             currentBox.isCurrent = false;
             currentBox = undefined;
             currentRow.isCurrent = false;
@@ -37,18 +37,41 @@ PuzzleForm {
         }
         else {
             var box = boxes[square.cell.box];
-            if (box != currentBox)
+            if (box !== currentBox)
                 box.isCurrent = false;
             var column = columns[square.cell.column];
-            if (column != currentColumn)
+            if (column !== currentColumn)
                 column.isCurrent = false;
             var row = rows[square.cell.row];
-            if (row != currentRow)
+            if (row !== currentRow)
                 row.isCurrent = false;
         }
     }
 
+    grid.add: Transition {
+        NumberAnimation {
+            id: boxAnimationX
+            properties: "x"
+            from: parent.width / 3
+            duration: (Math.random() * 5000) + 500
+            easing.type: Easing.OutBounce
+        }
+        NumberAnimation {
+            id: boxAnimationY
+            properties: "y"
+            from: (parent.width / -2) - (Math.random() * 100)
+            duration: (Math.random() * 5000) + 500
+            easing.type: Easing.OutBounce
+        }
+    }
+
     Component.onCompleted: {
+        var component = Qt.createComponent("Box.qml");
+        for (var i = 0; i < 9; i++) {
+            var box = component.createObject(grid);
+            box.height = Qt.binding(function() { return (puzzle.height - (puzzle.border.width * 2)) / grid.rows });
+            box.width = Qt.binding(function() { return (puzzle.width - (puzzle.border.width * 2)) / grid.columns });
+        }
         for (var i = 0; i < 3; i++) {
             for (var j = 0; j < 3; j++) {
                 for (var x = 0; x < 3; x++) {
@@ -74,13 +97,13 @@ PuzzleForm {
     Connections {
         target: game
         onPuzzleReset: {
-            if (currentBox != undefined)
+            if (currentBox !== undefined)
                 currentBox.isCurrent = false;
             currentBox = undefined;
-            if (currentColumn != undefined)
+            if (currentColumn !== undefined)
                 currentColumn.isCurrent = false;
             currentColumn = undefined;
-            if (currentRow != undefined)
+            if (currentRow !== undefined)
                 currentRow.isCurrent = false;
             currentRow = undefined;
             currentSquare = undefined;
