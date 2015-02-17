@@ -42,6 +42,12 @@ SquareForm {
         entry.focus = true;
     }
 
+    ScaleAnimator on scale {
+        from: 0.1;
+        to: 1;
+        duration: 4000;
+    }
+
     Connections {
         id: cellConnections
         target: null // Will be set to cell at a later point in time.

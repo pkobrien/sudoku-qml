@@ -11,10 +11,10 @@ from PyQt5.QtQml import QQmlApplicationEngine
 from game import Game
 
 
-def _bug_fix():
-    """PyQt needs help finding plugins directory in a virtual environment."""
-    paths = [os.path.abspath(os.path.join(os.path.dirname(__file__),
-             os.path.pardir, 'env/Lib/site-packages/PyQt5/plugins'))]
+def _find_plugins():
+    import PyQt5
+    from os import path
+    paths = [path.abspath(path.join(path.dirname(PyQt5.__file__), 'plugins'))]
     import PyQt5.QtCore
     PyQt5.QtCore.QCoreApplication.setLibraryPaths(paths)
 
@@ -22,7 +22,7 @@ def _bug_fix():
 if __name__ == '__main__':
     import os
     import sys
-    _bug_fix()
+    _find_plugins()
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()
     context = engine.rootContext()
