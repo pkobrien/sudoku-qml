@@ -84,7 +84,7 @@ PuzzleForm {
             }
         }
         for (var i = 0; i < squares.length; i++) {
-            var cell = game.cells[i];
+            var cell = py.game.cells[i];
             var square = squares[i];
             square.cell = cell;
             square.cellConnections.target = cell;
@@ -95,7 +95,7 @@ PuzzleForm {
     }
 
     Connections {
-        target: game
+        target: py.game
         onPuzzleReset: {
             if (currentBox !== undefined)
                 currentBox.isCurrent = false;

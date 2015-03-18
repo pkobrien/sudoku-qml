@@ -33,7 +33,7 @@ Rectangle {
     states: [
         State {
             name: "HIGHLIGHTED"
-            when: (isCurrent && game.show_hints)
+            when: (isCurrent && py.game.show_hints)
             PropertyChanges {target: box; border.color: "yellow"}
         }
     ]

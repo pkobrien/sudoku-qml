@@ -71,7 +71,7 @@ Rectangle {
         State {
             name: "ENTRY-HIDDEN"
             PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: game.show_hints}
+            PropertyChanges {target: hintGrid; visible: py.game.show_hints}
             PropertyChanges {target: mouseArea; visible: true}
             PropertyChanges {target: solution; visible: false}
         },
@@ -85,7 +85,7 @@ Rectangle {
         State {
             name: "INIT"
             PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: game.show_hints}
+            PropertyChanges {target: hintGrid; visible: py.game.show_hints}
             PropertyChanges {target: mouseArea; visible: false}
             PropertyChanges {target: solution; visible: false}
             PropertyChanges {target: square; y: 0 - (square.height * 8)}

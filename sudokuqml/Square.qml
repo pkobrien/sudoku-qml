@@ -27,7 +27,7 @@ SquareForm {
             cell.update(entry.text);
             entry.selectAll();
         }
-        if (game.show_hints) {
+        if (py.game.show_hints) {
             if ((entry.text !== "") && (entry.text !== cell.solved_value))
                 entry.state = "WRONG-ANSWER";
             else
@@ -63,9 +63,9 @@ SquareForm {
     }
 
     Connections {
-        target: game
+        target: py.game
         onHintModeChanged: {
-            if (game.show_hints) {
+            if (py.game.show_hints) {
                 if ((entry.text !== "") && (entry.text !== cell.solved_value))
                     entry.state = "WRONG-ANSWER";
                 else

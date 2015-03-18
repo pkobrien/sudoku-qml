@@ -8,26 +8,37 @@ Hosted at https://github.com/pkobrien/sudoku-qml
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
 
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject, QVariant
+
 from game import Game
 
 
-def _find_plugins():
-    import PyQt5
-    from os import path
-    paths = [path.abspath(path.join(path.dirname(PyQt5.__file__), 'plugins'))]
-    import PyQt5.QtCore
-    PyQt5.QtCore.QCoreApplication.setLibraryPaths(paths)
+class Namespace(QObject):
+    """Namespace to add clarity on the QML side, contains all Python objects
+    exposed to the QML root context as attributes."""
+
+    gameChanged = pyqtSignal()
+
+    def __init__(self):
+        super(Namespace, self).__init__()
+        self._game = Game()
+
+    @pyqtProperty(QObject, notify=gameChanged)
+    def game(self):
+        return self._game
 
 
 if __name__ == '__main__':
-    import os
+    from os import path
+    import PyQt5
     import sys
-    _find_plugins()
     app = QGuiApplication(sys.argv)
+    app.addLibraryPath(path.abspath(path.join(path.dirname(PyQt5.__file__), 'plugins')))
     engine = QQmlApplicationEngine()
+    engine.addImportPath('../../qml-android')
     context = engine.rootContext()
-    game = Game()
-    context.setContextProperty('game', game)
-    qml_filename = os.path.join(os.path.dirname(__file__), 'main.qml')
+    py = Namespace()
+    context.setContextProperty('py', py)
+    qml_filename = path.join(path.dirname(__file__), 'main.qml')
     engine.load(qml_filename)
     sys.exit(app.exec_())

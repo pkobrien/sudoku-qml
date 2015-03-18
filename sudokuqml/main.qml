@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
+import Android 1.0 as A
 
 ApplicationWindow {
     title: qsTr("Sudoku")
@@ -9,22 +10,24 @@ ApplicationWindow {
     height: 500 + toolBar.height
     visible: true
 
+    property var dp: A.Units.dp
+
     Action {
         id: newEasyPuzzleAction
         text: qsTr("New Easy Puzzle")
-        onTriggered: game.setup_random_puzzle(50);
+        onTriggered: py.game.setup_random_puzzle(50);
     }
 
     Action {
         id: newMediumPuzzleAction
         text: qsTr("New Medium Puzzle")
-        onTriggered: game.setup_random_puzzle(40);
+        onTriggered: py.game.setup_random_puzzle(40);
     }
 
     Action {
         id: newHardPuzzleAction
         text: qsTr("New Hard Puzzle")
-        onTriggered: game.setup_random_puzzle(30);
+        onTriggered: py.game.setup_random_puzzle(30);
     }
 
     menuBar: MenuBar {
@@ -52,10 +55,10 @@ ApplicationWindow {
             CheckBox {
                 id: showHints
                 text: "Show Hints"
-                onClicked: game.show_hints = showHints.checked;
+                onClicked: py.game.show_hints = showHints.checked;
             }
         }
-        Component.onCompleted: showHints.checked = game.show_hints;
+        Component.onCompleted: showHints.checked = py.game.show_hints;
     }
 
     Puzzle {
