@@ -39,6 +39,6 @@ if __name__ == '__main__':
     context = engine.rootContext()
     py = Namespace()
     context.setContextProperty('py', py)
-    qml_filename = path.join(path.dirname(__file__), 'main.qml')
+    qml_filename = path.join(path.dirname(__file__), 'Sudoku.qml')
     engine.load(qml_filename)
     sys.exit(app.exec_())
