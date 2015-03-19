@@ -3,6 +3,8 @@ import QtQuick 2.4
 BoxForm {
     id: box
 
+    border.width: dp(2)
+
     ScaleAnimator on scale {
         from: 0.1;
         to: 1;

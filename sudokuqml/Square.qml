@@ -3,6 +3,9 @@ import QtQuick 2.4
 SquareForm {
     id: square
 
+    width: dp(48)
+    height: dp(48)
+
     property var cell
     property alias cellConnections: cellConnections
     property int index
@@ -42,11 +45,11 @@ SquareForm {
         entry.focus = true;
     }
 
-    ScaleAnimator on scale {
-        from: 0.1;
-        to: 1;
-        duration: 4000;
-    }
+//    ScaleAnimator on scale {
+//        from: 0.1;
+//        to: 1;
+//        duration: 4000;
+//    }
 
     Connections {
         id: cellConnections

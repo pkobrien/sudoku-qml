@@ -1,21 +1,24 @@
 import QtQuick 2.4
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.3
 
 Rectangle {
     id: hint
-    width: 14
-    height: 14
+
+    width: 12
+    height: 12
     color: "#00000000"
 
     property alias hintText: hintText
 
     Text {
         id: hintText
+
         anchors.fill: parent
+        color: "#cccccc"
+        fontSizeMode: Text.Fit
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        color: "#cccccc"
         text: "0"
     }
 

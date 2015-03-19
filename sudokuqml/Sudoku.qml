@@ -5,12 +5,40 @@ import QtQuick.Window 2.2
 import Android 1.0 as A
 
 ApplicationWindow {
-    title: qsTr("Sudoku")
-    width: 500
-    height: 500 + toolBar.height
-    visible: true
+    id: appWindow
 
     property var dp: A.Units.dp
+
+    title: qsTr("Sudoku")
+    visible: true
+
+    x: Screen.width / 2 - width / 2
+    y: Screen.height / 2 - height / 2
+
+    Component.onCompleted: {
+        A.Units.pixelDensity = Qt.binding(function() { return Screen.pixelDensity; });
+        A.Units.scaleFactor = 3.0;
+        appWindow.width = Qt.binding(function() { return puzzle.width + dp(100); });
+        appWindow.height = Qt.binding(function() { return puzzle.height + dp(160); });
+    }
+
+    Action {
+        id: develop
+        shortcut: StandardKey.Back
+        text: qsTr("Developer Info")
+        onTriggered: {
+            console.log("A.Units.pixelDensity", A.Units.pixelDensity);
+            console.log("width/height", width, height);
+            console.log("dp(500)", dp(500));
+            console.log("dp(48)", dp(48));
+            console.log("dp(5)", dp(5));
+            console.log("dp(4)", dp(4));
+            console.log("dp(3)", dp(3));
+            console.log("dp(2)", dp(2));
+            console.log("dp(1)", dp(1));
+            console.log("dp(0)", dp(0));
+        }
+    }
 
     Action {
         id: newEasyPuzzleAction
@@ -33,6 +61,7 @@ ApplicationWindow {
     menuBar: MenuBar {
         Menu {
             title: qsTr("&File")
+            MenuItem { action: develop }
             MenuItem { action: newEasyPuzzleAction }
             MenuItem { action: newMediumPuzzleAction }
             MenuItem { action: newHardPuzzleAction }
@@ -45,7 +74,7 @@ ApplicationWindow {
     }
 
     toolBar: ToolBar {
-        height: 40
+        height: dp(40)
         RowLayout {
             anchors.fill: parent
             ToolButton { action: newEasyPuzzleAction }
@@ -54,15 +83,15 @@ ApplicationWindow {
             Item { Layout.fillWidth: true }
             CheckBox {
                 id: showHints
+                checked: py.game.show_hints
                 text: "Show Hints"
                 onClicked: py.game.show_hints = showHints.checked;
             }
         }
-        Component.onCompleted: showHints.checked = py.game.show_hints;
     }
 
     Puzzle {
         id: puzzle
-        anchors.fill: parent
+        anchors.centerIn: parent
     }
 }

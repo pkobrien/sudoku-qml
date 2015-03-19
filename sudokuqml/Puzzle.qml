@@ -48,30 +48,24 @@ PuzzleForm {
         }
     }
 
-    grid.add: Transition {
-        NumberAnimation {
-            id: boxAnimationX
-            properties: "x"
-            from: parent.width / 3
-            duration: (Math.random() * 5000) + 500
-            easing.type: Easing.OutBounce
-        }
-        NumberAnimation {
-            id: boxAnimationY
-            properties: "y"
-            from: (parent.width / -2) - (Math.random() * 100)
-            duration: (Math.random() * 5000) + 500
-            easing.type: Easing.OutBounce
-        }
-    }
+//    grid.add: Transition {
+//        NumberAnimation {
+//            id: boxAnimationX
+//            properties: "x"
+//            from: parent.width / 3
+//            duration: (Math.random() * 5000) + 500
+//            easing.type: Easing.OutBounce
+//        }
+//        NumberAnimation {
+//            id: boxAnimationY
+//            properties: "y"
+//            from: (parent.width / -2) - (Math.random() * 100)
+//            duration: (Math.random() * 5000) + 500
+//            easing.type: Easing.OutBounce
+//        }
+//    }
 
     Component.onCompleted: {
-        var component = Qt.createComponent("Box.qml");
-        for (var i = 0; i < 9; i++) {
-            var box = component.createObject(grid);
-            box.height = Qt.binding(function() { return (puzzle.height - (puzzle.border.width * 2)) / grid.rows });
-            box.width = Qt.binding(function() { return (puzzle.width - (puzzle.border.width * 2)) / grid.columns });
-        }
         for (var i = 0; i < 3; i++) {
             for (var j = 0; j < 3; j++) {
                 for (var x = 0; x < 3; x++) {

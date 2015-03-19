@@ -1,14 +1,16 @@
 import QtQuick 2.4
-import QtQuick.Layouts 1.0
-import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
+import QtQuick.Controls 1.3
 import QtGraphicalEffects 1.0
 
 Rectangle {
     id: square
-    width: 40
-    height: 40
-    border.width: 1
+
+    width: 48
+    height: 48
+
     border.color: "black"
+    border.width: 1
     color: "transparent"
 
     property alias entry: entry
@@ -19,7 +21,7 @@ Rectangle {
 
     HintGrid {
         id: hintGrid
-        anchors.fill: parent
+        anchors.centerIn: parent
         visible: false
     }
 
@@ -28,8 +30,9 @@ Rectangle {
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font.pointSize: 24
         font.bold: true
+        font.pointSize: 99
+        fontSizeMode: Text.Fit
         visible: false
     }
 
@@ -47,15 +50,13 @@ Rectangle {
 
     Entry {
         id: entry
-        width: parent.width
-        height: parent.height
         anchors.centerIn: parent
         visible: false
     }
 
     MouseArea {
         id: mouseArea
-        anchors.fill: parent
+        anchors.fill: entry
         cursorShape: Qt.PointingHandCursor
         visible: false
     }
