@@ -31,8 +31,7 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         font.bold: true
-        font.pointSize: 99
-        fontSizeMode: Text.Fit
+        font.pixelSize: 30
         visible: false
     }
 

@@ -3,6 +3,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import Android 1.0 as A
+import "." as App
 
 ApplicationWindow {
     id: appWindow
@@ -22,76 +23,14 @@ ApplicationWindow {
         appWindow.height = Qt.binding(function() { return puzzle.height + dp(160); });
     }
 
-    Action {
-        id: develop
-        shortcut: StandardKey.Back
-        text: qsTr("Developer Info")
-        onTriggered: {
-            console.log("A.Units.pixelDensity", A.Units.pixelDensity);
-            console.log("width/height", width, height);
-            console.log("dp(500)", dp(500));
-            console.log("dp(48)", dp(48));
-            console.log("dp(5)", dp(5));
-            console.log("dp(4)", dp(4));
-            console.log("dp(3)", dp(3));
-            console.log("dp(2)", dp(2));
-            console.log("dp(1)", dp(1));
-            console.log("dp(0)", dp(0));
-        }
-    }
+    menuBar: App.MenuBar { }
 
-    Action {
-        id: newEasyPuzzleAction
-        text: qsTr("New Easy Puzzle")
-        onTriggered: py.game.setup_random_puzzle(50);
-    }
-
-    Action {
-        id: newMediumPuzzleAction
-        text: qsTr("New Medium Puzzle")
-        onTriggered: py.game.setup_random_puzzle(40);
-    }
-
-    Action {
-        id: newHardPuzzleAction
-        text: qsTr("New Hard Puzzle")
-        onTriggered: py.game.setup_random_puzzle(30);
-    }
-
-    menuBar: MenuBar {
-        Menu {
-            title: qsTr("&File")
-            MenuItem { action: develop }
-            MenuItem { action: newEasyPuzzleAction }
-            MenuItem { action: newMediumPuzzleAction }
-            MenuItem { action: newHardPuzzleAction }
-            MenuItem {
-                text: qsTr("E&xit")
-                shortcut: StandardKey.Quit
-                onTriggered: Qt.quit();
-            }
-        }
-    }
-
-    toolBar: ToolBar {
-        height: dp(40)
-        RowLayout {
-            anchors.fill: parent
-            ToolButton { action: newEasyPuzzleAction }
-            ToolButton { action: newMediumPuzzleAction }
-            ToolButton { action: newHardPuzzleAction }
-            Item { Layout.fillWidth: true }
-            CheckBox {
-                id: showHints
-                checked: py.game.show_hints
-                text: "Show Hints"
-                onClicked: py.game.show_hints = showHints.checked;
-            }
-        }
-    }
+    toolBar: App.ToolBar { }
 
     Puzzle {
         id: puzzle
         anchors.centerIn: parent
+        focus: true
+        Keys.onPressed: App.Actions.keyPressed(event, appWindow);
     }
 }

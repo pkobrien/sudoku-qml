@@ -16,7 +16,7 @@ Rectangle {
 
         anchors.fill: parent
         color: "#cccccc"
-        fontSizeMode: Text.Fit
+        font.pixelSize: 9
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         text: "0"

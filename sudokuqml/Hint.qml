@@ -5,4 +5,6 @@ HintForm {
 
     width: dp(12)
     height: dp(12)
+
+    hintText.font.pixelSize: dp(9)
 }

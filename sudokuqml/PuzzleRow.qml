@@ -3,6 +3,8 @@ import QtQuick 2.4
 PuzzleRowForm {
     id: row
 
+    border.width: dp(3)
+
     transitions: [
         Transition {
             from: "*"; to: "HIGHLIGHTED"

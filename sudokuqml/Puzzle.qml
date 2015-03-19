@@ -12,6 +12,8 @@ PuzzleForm {
     signal squareActivated(Square square)
     signal squareDeactivated(Square square)
 
+    border.width: dp(1)
+
     onSquareActivated: {
         currentSquare = square;
         var box = boxes[square.cell.box];

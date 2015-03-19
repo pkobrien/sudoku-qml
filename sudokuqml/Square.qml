@@ -6,6 +6,9 @@ SquareForm {
     width: dp(48)
     height: dp(48)
 
+    border.width: dp(1)
+    solution.font.pixelSize: dp(30)
+
     property var cell
     property alias cellConnections: cellConnections
     property int index
