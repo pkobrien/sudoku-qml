@@ -12,9 +12,8 @@ Rectangle {
     property alias squares: grid.children
 
     border.color: "blue"
-    border.width: 2
+    border.width: 3
     color: "transparent"
-    z: 1
 
     Grid {
         id: grid
@@ -26,16 +25,13 @@ Rectangle {
             model: 9
 
             Square { }
-//                width: (box.width - (box.border.width * 2)) / grid.columns
-//                height: (box.height - (box.border.width * 2)) / grid.rows
-//            }
         }
     }
 
     states: [
         State {
             name: "HIGHLIGHTED"
-            when: (isCurrent && py.game.show_hints)
+            when: isCurrent && py.game.show_hints
             PropertyChanges {target: box; border.color: "yellow"}
         }
     ]

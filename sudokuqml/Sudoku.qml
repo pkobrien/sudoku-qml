@@ -12,8 +12,8 @@ ApplicationWindow {
     title: qsTr("Sudoku")
     visible: true
 
-    x: Screen.width / 2 - width / 2
-    y: Screen.height / 2 - height / 2
+    x: (Screen.width - width) / 2
+    y: (Screen.height - height) / 2
 
     Component.onCompleted: {
         A.Units.pixelDensity = Qt.binding(function() { return Screen.pixelDensity; });
