@@ -23,20 +23,6 @@ Rectangle {
     property alias squares: grid.children
 
     Grid {
-        id: grid
-
-        anchors.centerIn: parent
-        columns: 9
-        rows: 9
-
-        Repeater {
-            model: 81
-
-            Square { }
-        }
-    }
-
-    Grid {
         id: boxHighlights
 
         anchors.centerIn: parent
@@ -81,6 +67,20 @@ Rectangle {
                 width: grid.width
                 height: grid.height / 9
             }
+        }
+    }
+
+    Grid {
+        id: grid
+
+        anchors.centerIn: parent
+        columns: 9
+        rows: 9
+
+        Repeater {
+            model: 81
+
+            Square { }
         }
     }
 }

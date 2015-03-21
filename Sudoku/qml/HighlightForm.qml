@@ -19,7 +19,8 @@ Rectangle {
         State {
             name: "HIGHLIGHTED"
             when: isCurrent && App.Active.showHints
-            PropertyChanges { target: highlight; border.color: "#ccffff00" }
+//            PropertyChanges { target: highlight; border.color: "#ccffff00" }
+            PropertyChanges { target: highlight; border.color: "yellow" }
         }
     ]
 }
