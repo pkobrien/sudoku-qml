@@ -7,34 +7,30 @@ PuzzleForm {
     property var currentColumn
     property var currentRow
     property var currentSquare
-    property var squares: []
 
     signal squareActivated(Square square)
     signal squareDeactivated(Square square)
 
-    border.width: dp(1)
+    border.width: dp(4)
 
     onSquareActivated: {
         currentSquare = square;
-        var box = boxes[square.cell.box];
-        currentBox = box;
-        box.isCurrent = true;
-        var column = columns[square.cell.column];
-        currentColumn = column;
-        column.isCurrent = true;
-        var row = rows[square.cell.row];
-        currentRow = row;
-        row.isCurrent = true;
+        currentBox = boxes[square.cell.box];
+        currentBox.isCurrent = true;
+        currentColumn = columns[square.cell.column];
+        currentColumn.isCurrent = true;
+        currentRow = rows[square.cell.row];
+        currentRow.isCurrent = true;
     }
 
     onSquareDeactivated: {
         if (square === currentSquare) {
             currentBox.isCurrent = false;
             currentBox = undefined;
-            currentRow.isCurrent = false;
-            currentRow = undefined;
             currentColumn.isCurrent = false;
             currentColumn = undefined;
+            currentRow.isCurrent = false;
+            currentRow = undefined;
             currentSquare = undefined;
         }
         else {
@@ -68,18 +64,7 @@ PuzzleForm {
 //    }
 
     Component.onCompleted: {
-        for (var i = 0; i < 3; i++) {
-            for (var j = 0; j < 3; j++) {
-                for (var x = 0; x < 3; x++) {
-                    for (var y = 0; y < 3; y++) {
-                        var boxIndex = (i * 3) + x;
-                        var squareIndex = (j * 3) + y;
-                        squares.push(boxes[boxIndex].squares[squareIndex]);
-                    }
-                }
-            }
-        }
-        for (var i = 0; i < squares.length; i++) {
+        for (var i = 0; i < 81; i++) {
             var cell = py.game.cells[i];
             var square = squares[i];
             square.cell = cell;

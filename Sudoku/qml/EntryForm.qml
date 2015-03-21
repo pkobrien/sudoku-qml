@@ -24,7 +24,7 @@ TextField {
     states: [
         State {
             name: "WRONG-ANSWER"
-            PropertyChanges {target: entry; font.underline: true}
+            PropertyChanges { target: entry; font.underline: true }
         }
     ]
 }

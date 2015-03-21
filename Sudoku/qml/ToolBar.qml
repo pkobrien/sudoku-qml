@@ -17,10 +17,9 @@ ToolBar {
         ToolButton { action: App.Actions.newHardPuzzleAction }
         Item { Layout.fillWidth: true }
         CheckBox {
-            id: showHints
-            checked: py.game.show_hints
+            checked: App.Active.showHints
             text: "Show Hints"
-            onClicked: py.game.show_hints = showHints.checked;
+            onClicked: App.Active.showHints = checked;
         }
     }
 }

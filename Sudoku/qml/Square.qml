@@ -1,4 +1,5 @@
 import QtQuick 2.4
+import "." as App
 
 SquareForm {
     id: square
@@ -33,7 +34,7 @@ SquareForm {
             cell.update(entry.text);
             entry.selectAll();
         }
-        if (py.game.show_hints) {
+        if (App.Active.showHints) {
             if ((entry.text !== "") && (entry.text !== cell.solved_value))
                 entry.state = "WRONG-ANSWER";
             else
@@ -55,6 +56,20 @@ SquareForm {
 //    }
 
     Connections {
+        target: App.Active
+        onShowHintsChanged: {
+            if (App.Active.showHints) {
+                if ((entry.text !== "") && (entry.text !== cell.solved_value))
+                    entry.state = "WRONG-ANSWER";
+                else
+                    entry.state = "";
+            }
+            else
+                entry.state = "";
+        }
+    }
+
+    Connections {
         id: cellConnections
         target: null // Will be set to cell at a later point in time.
         onHintsChanged: {
@@ -70,16 +85,6 @@ SquareForm {
 
     Connections {
         target: py.game
-        onHintModeChanged: {
-            if (py.game.show_hints) {
-                if ((entry.text !== "") && (entry.text !== cell.solved_value))
-                    entry.state = "WRONG-ANSWER";
-                else
-                    entry.state = "";
-            }
-            else
-                entry.state = "";
-        }
         onPuzzleReset: {
             state = "INIT";
             solution.text = "";

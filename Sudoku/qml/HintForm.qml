@@ -25,15 +25,15 @@ Rectangle {
     states: [
         State {
             name: "HIDDEN"
-            PropertyChanges {target: hintText; color: "#cccccc"}
+            PropertyChanges { target: hintText; color: "#cccccc" }
         },
         State {
             name: "INIT"
-            PropertyChanges {target: hintText; color: "#cccccc"}
+            PropertyChanges { target: hintText; color: "#cccccc" }
         },
         State {
             name: "SHOWN"
-            PropertyChanges {target: hintText; color: "#000000"}
+            PropertyChanges { target: hintText; color: "#000000" }
         }
     ]
 }
