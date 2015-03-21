@@ -35,7 +35,7 @@ if __name__ == '__main__':
     app = QGuiApplication(sys.argv)
     app.addLibraryPath(path.abspath(path.join(path.dirname(PyQt5.__file__), 'plugins')))
     engine = QQmlApplicationEngine()
-    engine.addImportPath('../../qml-android')
+    engine.addImportPath('../../qml-candy')
     context = engine.rootContext()
     py = Namespace()
     context.setContextProperty('py', py)

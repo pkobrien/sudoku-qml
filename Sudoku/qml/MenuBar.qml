@@ -7,7 +7,7 @@ MenuBar {
 
     Menu {
         title: "&File"
-        MenuItem { action: App.Actions.developAction }
+        MenuItem { action: App.Actions.developerInfoAction }
         MenuItem { action: App.Actions.scaleDownAction }
         MenuItem { action: App.Actions.scaleUpAction }
         MenuSeparator { }

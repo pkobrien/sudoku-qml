@@ -2,14 +2,14 @@ pragma Singleton
 
 import QtQuick 2.4
 import QtQuick.Controls 1.3
-import Android 1.0 as A
+import Candy 1.0 as Candy
 import "." as App
 
 QtObject {
     id: actionsSingleton
 
-//    property var awesome: App.FontAwesome
-//    property var fa: App.FontAwesome.icons
+//    property var awesome: Candy.FontAwesome
+//    property var fa: Candy.FontAwesome.icons
 
     property Action appQuitAction: Action {
         text: qsTr("E&xit")
@@ -17,8 +17,7 @@ QtObject {
         onTriggered: Qt.quit();
     }
 
-    property Action developAction: Action {
-        shortcut: StandardKey.Back
+    property Action developerInfoAction: Action {
         text: qsTr("Developer Info")
         onTriggered: {
             console.log("dp(48)", dp(48));
@@ -49,14 +48,14 @@ QtObject {
     property Action scaleDownAction: Action {
         text: qsTr("Scale Down")
         onTriggered: {
-            A.Units.scaleFactor = Math.max(1.0, A.Units.scaleFactor - 1.0);
-            console.log("A.Units.scaleFactor", A.Units.scaleFactor);
+            Candy.Units.scaleFactor = Math.max(1.0, Candy.Units.scaleFactor - 1.0);
+            console.log("Candy.Units.scaleFactor", Candy.Units.scaleFactor);
         }
     }
 
     property Action scaleUpAction: Action {
         text: qsTr("Scale Up")
-        onTriggered: { A.Units.scaleFactor += 1.0; console.log("A.Units.scaleFactor", A.Units.scaleFactor); }
+        onTriggered: { Candy.Units.scaleFactor += 1.0; console.log("Candy.Units.scaleFactor", Candy.Units.scaleFactor); }
     }
 
     function keyPressed(event, source) {
@@ -65,9 +64,9 @@ QtObject {
         } else if (event.matches(StandardKey.Quit) ||
                 (event.key === Qt.Key_Q && event.modifiers === Qt.ControlModifier)) {
             appQuitAction.trigger(source);
-        } else if (event.key === Qt.Key_Minus && event.modifiers === Qt.ControlModifier) {
+        } else if (event.key === Qt.Key_Minus && event.modifiers === (Qt.ControlModifier | Qt.KeypadModifier)) {
             scaleDownAction.trigger(source);
-        } else if (event.key === Qt.Key_Plus && event.modifiers === Qt.ControlModifier) {
+        } else if (event.key === Qt.Key_Plus && event.modifiers === (Qt.ControlModifier | Qt.KeypadModifier)) {
             scaleUpAction.trigger(source);
         } else {
             event.accepted = false;

@@ -3,7 +3,7 @@
 import QmlProject 1.1
 
 Project {
-    mainFile: "Sudoku.qml"
+    mainFile: "Sudoku/Sudoku.qml"
 
     /* Include .qml, .js, and image files from current directory and subdirectories */
     QmlFiles {
@@ -16,6 +16,5 @@ Project {
         directory: "."
     }
     /* List of plugin directories passed to QML runtime */
-    // importPaths: [ "../exampleplugin" ]
-    importPaths: [ "../../qml-android" ]
+    importPaths: [ "../qml-candy" ]
 }
