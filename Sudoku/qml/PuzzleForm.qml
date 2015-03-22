@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.3
+import "." as App
 
 Rectangle {
     id: puzzle
@@ -16,10 +17,7 @@ Rectangle {
         GradientStop { position: 1.0; color: "#dddddd" }
     }
 
-    property alias boxes: boxHighlights.children
-    property alias columns: columnHighlights.children
     property alias grid: grid
-    property alias rows: rowHighlights.children
     property alias squares: grid.children
 
     Grid {
@@ -36,6 +34,7 @@ Rectangle {
                 width: grid.width / 3
                 height: grid.height / 3
                 border.color: "black"
+                isActive: App.Active.square ? App.Active.square.box === index : false
             }
         }
     }
@@ -51,6 +50,7 @@ Rectangle {
             Highlight {
                 width: grid.width / 9
                 height: grid.height
+                isActive: App.Active.square ? App.Active.square.column === index : false
             }
         }
     }
@@ -66,6 +66,7 @@ Rectangle {
             Highlight {
                 width: grid.width
                 height: grid.height / 9
+                isActive: App.Active.square ? App.Active.square.row === index : false
             }
         }
     }
@@ -80,7 +81,7 @@ Rectangle {
         Repeater {
             model: 81
 
-            Square { }
+            Square {  }
         }
     }
 }

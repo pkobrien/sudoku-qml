@@ -16,6 +16,7 @@ class Cell(QObject):
     This class does not have any UI elements. Instead it emits signals."""
 
     hintsChanged = pyqtSignal()
+    noop = pyqtSignal()
 
     def __init__(self, game, square):
         super(Cell, self).__init__()
@@ -40,7 +41,7 @@ class Cell(QObject):
     def row(self):
         return self._square.row.number - 1
 
-    @pyqtProperty(str)
+    @pyqtProperty(str, notify=noop)
     def solved_value(self):
         return self._square.solved_value or ''
 

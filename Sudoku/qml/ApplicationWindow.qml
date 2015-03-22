@@ -35,7 +35,5 @@ ApplicationWindow {
     Puzzle {
         id: puzzle
         anchors.centerIn: parent
-        focus: true
-        Keys.onPressed: App.Actions.keyPressed(event, appWindow);
     }
 }

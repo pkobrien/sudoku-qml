@@ -3,8 +3,8 @@ import QtQuick 2.4
 HintForm {
     id: hint
 
-    width: dp(12)
-    height: dp(12)
+    width: dp(13)
+    height: dp(13)
 
-    hintText.font.pixelSize: dp(9)
+    hintText.font.pixelSize: dp(10)
 }

@@ -7,11 +7,11 @@ HighlightForm {
 
     transitions: [
         Transition {
-            from: "*"; to: "HIGHLIGHTED"
+            from: "*"; to: "ACTIVE"
             ColorAnimation { target: highlight; properties: "border.color"; duration: 1000 }
         },
         Transition {
-            from: "HIGHLIGHTED"; to: "*"
+            from: "ACTIVE"; to: "*"
             ColorAnimation { target: highlight; properties: "border.color"; duration: 500 }
         }
     ]

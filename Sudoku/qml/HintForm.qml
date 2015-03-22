@@ -5,9 +5,9 @@ import QtQuick.Controls 1.3
 Rectangle {
     id: hint
 
-    width: 12
-    height: 12
-    color: "#00000000"
+    width: 13
+    height: 13
+    color: "transparent"
 
     property alias hintText: hintText
 
@@ -16,21 +16,13 @@ Rectangle {
 
         anchors.fill: parent
         color: "#cccccc"
-        font.pixelSize: 9
+        font.pixelSize: 10
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         text: "0"
     }
 
     states: [
-        State {
-            name: "HIDDEN"
-            PropertyChanges { target: hintText; color: "#cccccc" }
-        },
-        State {
-            name: "INIT"
-            PropertyChanges { target: hintText; color: "#cccccc" }
-        },
         State {
             name: "SHOWN"
             PropertyChanges { target: hintText; color: "#000000" }

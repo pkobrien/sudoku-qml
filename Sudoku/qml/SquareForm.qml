@@ -15,7 +15,6 @@ Rectangle {
     color: "transparent"
 
     property alias entry: entry
-    property alias hintGrid: hintGrid
     property alias hints: hintGrid.hints
     property alias mouseArea: mouseArea
     property alias solution: solution

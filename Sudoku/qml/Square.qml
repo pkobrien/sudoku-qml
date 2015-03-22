@@ -10,75 +10,54 @@ SquareForm {
     border.width: dp(1)
     solution.font.pixelSize: dp(30)
 
-    property var cell
-    property alias cellConnections: cellConnections
-    property int index
+    property var cell: null
 
-    signal activated(var square)
-    signal deactivated(var square)
+    property int box
+    property int column
+    property int row
+
+    onCellChanged: {
+        if (!cell) {
+            return;
+        }
+        entry.cell = cell;
+        square.box = cell.box;
+        square.column = cell.column;
+        square.row = cell.row;
+    }
 
     entry.onFocusChanged: {
-        if (entry.activeFocus) {
-            entry.selectAll();
-            activated(square);
-        }
-        else {
-            if (entry.text === "")
-                state = "ENTRY-HIDDEN";
-            deactivated(square);
+        if (!entry.activeFocus && entry.text === "") {
+            square.state = "ENTRY-HIDDEN";
         }
     }
 
     entry.onTextChanged: {
-        if (state !== "INIT") {
+        if (square.state !== "INIT") {
             cell.update(entry.text);
             entry.selectAll();
-        }
-        if (App.Active.showHints) {
-            if ((entry.text !== "") && (entry.text !== cell.solved_value))
-                entry.state = "WRONG-ANSWER";
-            else
-                entry.state = "";
         }
     }
 
     mouseArea.onClicked: {
-        if (state === "ENTRY-HIDDEN")
+        App.Active.square = square;
+        if (state === "ENTRY-HIDDEN") {
             state = "ENTRY-SHOWN";
-        entry.selectAll();
+        }
         entry.focus = true;
     }
 
-//    ScaleAnimator on scale {
-//        from: 0.1;
-//        to: 1;
-//        duration: 4000;
-//    }
-
     Connections {
-        target: App.Active
-        onShowHintsChanged: {
-            if (App.Active.showHints) {
-                if ((entry.text !== "") && (entry.text !== cell.solved_value))
-                    entry.state = "WRONG-ANSWER";
-                else
-                    entry.state = "";
-            }
-            else
-                entry.state = "";
-        }
-    }
-
-    Connections {
-        id: cellConnections
-        target: null // Will be set to cell at a later point in time.
+        target: square.cell
         onHintsChanged: {
+            // Hide all the hints and then turn on the valid ones.
             for (var i = 0; i < 9; i++) {
-                hints[i].state = "HIDDEN";
+                square.hints[i].state = "";
             }
-            for (var i = 0; i < cell.hints.length; i++) {
-                var index = cell.hints[i];
-                hints[index].state = "SHOWN";
+            // square.cell.hints is a Python list of valid digits.
+            for (var i = 0; i < square.cell.hints.length; i++) {
+                var index = square.cell.hints[i];
+                square.hints[index].state = "SHOWN";
             }
         }
     }
@@ -91,17 +70,29 @@ SquareForm {
             entry.text = "";
             entry.focus = false;
             state = "ENTRY-HIDDEN";
-            for (var i = 0; i < 9; i++) {
-                hints[i].state = "INIT";
-            }
         }
         onPuzzleSetup: {
             solution.text = cell.solved_value;
-            if (cell.was_assigned)
+            if (cell.was_assigned) {
                 state = "ASSIGNED";
+            }
         }
         onPuzzleSolved: {
             state = "PUZZLE-SOLVED";
+        }
+    }
+
+    //    ScaleAnimator on scale {
+    //        from: 0.1;
+    //        to: 1;
+    //        duration: 4000;
+    //    }
+
+    focus: true
+    Keys.onPressed: {
+        if (event.key === Qt.Key_Escape) {
+            App.Active.square = undefined;
+            entry.focus = false;
         }
     }
 

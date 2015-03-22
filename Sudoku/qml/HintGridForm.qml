@@ -8,7 +8,7 @@ Rectangle {
     width: childrenRect.width
     height: childrenRect.height
 
-    color: "#00000000"
+    color: "transparent"
 
     property alias hints: grid.children
 

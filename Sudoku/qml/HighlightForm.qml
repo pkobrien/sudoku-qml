@@ -13,12 +13,12 @@ Rectangle {
     border.width: 3
     color: "transparent"
 
-    property bool isCurrent: false
+    property bool isActive: false
 
     states: [
         State {
-            name: "HIGHLIGHTED"
-            when: isCurrent && App.Active.showHints
+            name: "ACTIVE"
+            when: App.Active.showHints && isActive
 //            PropertyChanges { target: highlight; border.color: "#ccffff00" }
             PropertyChanges { target: highlight; border.color: "yellow" }
         }

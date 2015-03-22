@@ -7,5 +7,10 @@ EntryForm {
     height: dp(40)
 
     font.pixelSize: dp(30)
-}
 
+    onFocusChanged: {
+        if (entry.activeFocus) {
+            entry.selectAll();
+        }
+    }
+}
