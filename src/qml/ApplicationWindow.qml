@@ -1,14 +1,10 @@
 import QtQuick 2.4
-import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
 import QtQuick.Window 2.2
 import Candy 1.0 as Candy
 import "." as App
 
-ApplicationWindow {
+Candy.ApplicationWindow {
     id: appWindow
-
-    property var dp: Candy.Units.dp
 
     title: qsTr("Sudoku")
     visible: true
@@ -20,7 +16,6 @@ ApplicationWindow {
     y: Math.max(0, Math.round((Screen.height - height) / 2))
 
     Component.onCompleted: {
-        Candy.Units.pixelDensity = Qt.binding(function() { return Screen.pixelDensity; });
         Candy.Units.scaleFactor = 3.0;
         appWindow.width = Qt.binding(function() { return puzzle.width + dp(100); });
         appWindow.height = Qt.binding(function() { return puzzle.height + dp(160); });
@@ -32,7 +27,7 @@ ApplicationWindow {
 
     toolBar: App.ToolBar { }
 
-    Puzzle {
+    App.Puzzle {
         id: puzzle
         anchors.centerIn: parent
     }
