@@ -1,6 +1,7 @@
 import QtQuick 2.4
+import "." as App
 
-HighlightForm {
+App.HighlightForm {
     id: highlight
 
     border.width: dp(3)

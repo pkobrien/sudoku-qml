@@ -1,6 +1,7 @@
 import QtQuick 2.4
+import "." as App
 
-EntryForm {
+App.EntryForm {
     id: entry
 
     width: dp(40)

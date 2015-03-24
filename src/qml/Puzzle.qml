@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import "." as App
 
-PuzzleForm {
+App.PuzzleForm {
     id: puzzle
 
     border.width: dp(4)

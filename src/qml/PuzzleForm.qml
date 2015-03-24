@@ -30,11 +30,11 @@ Rectangle {
         Repeater {
             model: 9
 
-            Highlight {
+            App.Highlight {
                 width: grid.width / 3
                 height: grid.height / 3
                 border.color: "black"
-                isActive: App.Active.square ? App.Active.square.box === index : false
+                isActive: App.Active.square ? App.Active.square.boxIndex === index : false
             }
         }
     }
@@ -47,10 +47,10 @@ Rectangle {
         Repeater {
             model: 9
 
-            Highlight {
+            App.Highlight {
                 width: grid.width / 9
                 height: grid.height
-                isActive: App.Active.square ? App.Active.square.column === index : false
+                isActive: App.Active.square ? App.Active.square.columnIndex === index : false
             }
         }
     }
@@ -63,10 +63,10 @@ Rectangle {
         Repeater {
             model: 9
 
-            Highlight {
+            App.Highlight {
                 width: grid.width
                 height: grid.height / 9
-                isActive: App.Active.square ? App.Active.square.row === index : false
+                isActive: App.Active.square ? App.Active.square.rowIndex === index : false
             }
         }
     }
@@ -81,7 +81,7 @@ Rectangle {
         Repeater {
             model: 81
 
-            Square {  }
+            App.Square {  }
         }
     }
 }

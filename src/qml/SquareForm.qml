@@ -19,9 +19,22 @@ Rectangle {
     property alias mouseArea: mouseArea
     property alias solution: solution
 
-    HintGrid {
+    App.Entry {
+        id: entry
+        anchors.centerIn: parent
+        visible: false
+    }
+
+    App.HintGrid {
         id: hintGrid
         anchors.centerIn: parent
+        visible: false
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: entry
+        cursorShape: Qt.PointingHandCursor
         visible: false
     }
 
@@ -45,19 +58,6 @@ Rectangle {
         samples: 16
         source: solution
         visible: solution.visible
-    }
-
-    Entry {
-        id: entry
-        anchors.centerIn: parent
-        visible: false
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: entry
-        cursorShape: Qt.PointingHandCursor
-        visible: false
     }
 
     states: [

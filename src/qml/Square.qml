@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import "." as App
 
-SquareForm {
+App.SquareForm {
     id: square
 
     width: dp(48)
@@ -12,18 +12,18 @@ SquareForm {
 
     property var cell: null
 
-    property int box
-    property int column
-    property int row
+    property int boxIndex
+    property int columnIndex
+    property int rowIndex
 
     onCellChanged: {
         if (!cell) {
             return;
         }
         entry.cell = cell;
-        square.box = cell.box;
-        square.column = cell.column;
-        square.row = cell.row;
+        square.boxIndex = cell.box;
+        square.columnIndex = cell.column;
+        square.rowIndex = cell.row;
     }
 
     entry.onFocusChanged: {
