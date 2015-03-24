@@ -5,10 +5,13 @@ Main application for Sudoku using PyQt and QML.
 Hosted at https://github.com/pkobrien/sudoku-qml
 """
 
+from os import path
+import PyQt5
+import sys
+
+from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject
 from PyQt5.QtGui import QGuiApplication
 from PyQt5.QtQml import QQmlApplicationEngine
-
-from PyQt5.QtCore import pyqtProperty, pyqtSignal, QObject, QVariant
 
 from game import Game
 
@@ -29,16 +32,12 @@ class Namespace(QObject):
 
 
 if __name__ == '__main__':
-    from os import path
-    import PyQt5
-    import sys
     app = QGuiApplication(sys.argv)
     app.addLibraryPath(path.abspath(path.join(path.dirname(PyQt5.__file__), 'plugins')))
     engine = QQmlApplicationEngine()
-    engine.addImportPath('../../qml-candy')
+    engine.addImportPath(path.abspath(path.join(path.dirname(__file__), '../../qml-candy')))
     context = engine.rootContext()
     py = Namespace()
     context.setContextProperty('py', py)
-    qml_filename = path.join(path.dirname(__file__), 'Sudoku.qml')
-    engine.load(qml_filename)
+    engine.load(path.abspath(path.join(path.dirname(__file__), 'main.qml')))
     sys.exit(app.exec_())
