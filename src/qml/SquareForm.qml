@@ -1,5 +1,4 @@
 import QtQuick 2.4
-import QtQuick.Layouts 1.1
 import QtQuick.Controls 1.3
 import QtGraphicalEffects 1.0
 import "." as App
@@ -48,17 +47,17 @@ Rectangle {
         visible: false
     }
 
-    DropShadow {
-        id: shadow
-        anchors.fill: solution
-        color: "#80000000"
-        horizontalOffset: 3
-        verticalOffset: 3
-        radius: 8.0
-        samples: 16
-        source: solution
-        visible: solution.visible
-    }
+//    DropShadow {
+//        id: shadow
+//        anchors.fill: solution
+//        color: "#80000000"
+//        horizontalOffset: 3
+//        verticalOffset: 3
+//        radius: 8.0
+//        samples: 16
+//        source: solution
+//        visible: solution.visible
+//    }
 
     states: [
         State {

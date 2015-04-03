@@ -7,7 +7,7 @@ import "." as App
 ToolBar {
     id: toolBar
 
-    height: dp(40)
+//    height: dp(40)
 
     RowLayout {
         anchors.fill: parent
