@@ -6,7 +6,7 @@ Rectangle {
 
     width: 13
     height: 13
-    color: "transparent"
+    color: "Transparent"
 
     property alias hintText: hintText
 
@@ -23,7 +23,7 @@ Rectangle {
 
     states: [
         State {
-            name: "SHOWN"
+            name: "On"
             PropertyChanges { target: hintText; color: "#000000" }
         }
     ]

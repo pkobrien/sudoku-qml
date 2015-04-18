@@ -9,18 +9,18 @@ Rectangle {
     width: 100
     height: 100
 
-    border.color: "transparent"
+    border.color: "Transparent"
     border.width: 3
-    color: "transparent"
+    color: "Transparent"
 
     property bool isActive: false
 
     states: [
         State {
-            name: "ACTIVE"
+            name: "On"
             when: App.Active.showHints && isActive
 //            PropertyChanges { target: highlight; border.color: "#ccffff00" }
-            PropertyChanges { target: highlight; border.color: "yellow" }
+            PropertyChanges { target: highlight; border.color: "Yellow" }
         }
     ]
 }

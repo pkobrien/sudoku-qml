@@ -8,7 +8,7 @@ App.HighlightForm {
 
     transitions: [
         Transition {
-            from: "*"; to: "ACTIVE"
+            from: "*"; to: "On"
             ColorAnimation {
                 target: highlight;
                 properties: "border.color";
@@ -16,7 +16,7 @@ App.HighlightForm {
             }
         },
         Transition {
-            from: "ACTIVE"; to: "*"
+            from: "On"; to: "*"
             ColorAnimation {
                 target: highlight;
                 properties: "border.color";

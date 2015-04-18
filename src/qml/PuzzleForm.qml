@@ -8,11 +8,11 @@ Rectangle {
     width: grid.width + (border.width * 2)
     height: grid.height + (border.width * 2)
 
-    border.color: "black"
+    border.color: "Black"
     border.width: 4
 
     gradient: Gradient {
-        GradientStop { position: 0.0; color: "white" }
+        GradientStop { position: 0.0; color: "White" }
         GradientStop { position: 1.0; color: "#dddddd" }
     }
 

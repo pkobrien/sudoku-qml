@@ -14,9 +14,9 @@ Rectangle {
     width: 48
     height: 48
 
-    border.color: "black"
+    border.color: "Black"
     border.width: 1
-    color: "transparent"
+    color: "Transparent"
 
     property alias hints: hintGrid.hints
     property alias label: label
