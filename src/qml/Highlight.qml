@@ -9,11 +9,19 @@ App.HighlightForm {
     transitions: [
         Transition {
             from: "*"; to: "ACTIVE"
-            ColorAnimation { target: highlight; properties: "border.color"; duration: 1000 }
+            ColorAnimation {
+                target: highlight;
+                properties: "border.color";
+                duration: 1000
+            }
         },
         Transition {
             from: "ACTIVE"; to: "*"
-            ColorAnimation { target: highlight; properties: "border.color"; duration: 500 }
+            ColorAnimation {
+                target: highlight;
+                properties: "border.color";
+                duration: 500
+            }
         }
     ]
 }
