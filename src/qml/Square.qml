@@ -11,12 +11,6 @@ App.SquareForm {
 
     property string digit: ""
 
-    signal activated()
-    signal deactivated()
-    signal puzzleReset()
-    signal puzzleSetup()
-    signal puzzleSolved()
-
     signal deletePressed()
     signal digitPressed()
 
@@ -42,17 +36,6 @@ App.SquareForm {
     }
 
     Connections {
-        target: App.Active
-        onSquareChanged: {
-            if (square === App.Active.square) {
-                activated();
-            } else {
-                deactivated();
-            }
-        }
-    }
-
-    Connections {
         target: square.cell
         onHintsChanged: {
             // Hide all the hints and then turn on the valid ones.
@@ -62,27 +45,8 @@ App.SquareForm {
             // square.cell.hints is a Python list of valid digits.
             for (var i = 0; i < square.cell.hints.length; i++) {
                 var index = square.cell.hints[i];
-                square.hints[index].state = "SHOWN";
+                square.hints[index].state = "On";
             }
-        }
-    }
-
-    Connections {
-        target: py.game
-        onPuzzleReset: {
-            assigned = false;
-            label.text = "";
-            puzzleReset();
-        }
-        onPuzzleSetup: {
-            if (cell.was_assigned) {
-                assigned = true;
-                label.text = cell.solved_value;
-            }
-            puzzleSetup();
-        }
-        onPuzzleSolved: {
-            puzzleSolved();
         }
     }
 
@@ -97,8 +61,14 @@ App.SquareForm {
             id: blankState
 
             DSM.SignalTransition {
-                signal: puzzleSetup
+                signal: py.game.puzzleSetup
                 targetState: setupState
+                onTriggered: {
+                    if (cell.was_assigned) {
+                        assigned = true;
+                        label.text = cell.solved_value;
+                    }
+                }
             }
         }
 
@@ -108,11 +78,15 @@ App.SquareForm {
             initialState: inactiveState
 
             DSM.SignalTransition {
-                signal: puzzleReset
+                signal: py.game.puzzleReset
                 targetState: blankState
+                onTriggered: {
+                    assigned = false;
+                    label.text = "";
+                }
             }
             DSM.SignalTransition {
-                signal: puzzleSolved
+                signal: py.game.puzzleSolved
                 targetState: puzzleSolvedState
             }
 
@@ -122,7 +96,8 @@ App.SquareForm {
                 onEntered: App.Active.digit = label.text;
 
                 DSM.SignalTransition {
-                    signal: deactivated
+                    signal: selectedChanged
+                    guard: (!selected)
                     targetState: inactiveState
                 }
                 DSM.SignalTransition {
@@ -150,7 +125,8 @@ App.SquareForm {
                 id: inactiveState
 
                 DSM.SignalTransition {
-                    signal: activated
+                    signal: selectedChanged
+                    guard: (selected)
                     targetState: activeState
                 }
             }
