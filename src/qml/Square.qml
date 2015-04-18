@@ -36,6 +36,7 @@ App.SquareForm {
     }
 
     mouseArea.onClicked: {
+        App.Active.reset();
         App.Active.square = square;
         focus = true;
     }
@@ -119,8 +120,6 @@ App.SquareForm {
                 id: activeState
 
                 onEntered: App.Active.digit = label.text;
-
-                onExited: App.Active.digit = "";
 
                 DSM.SignalTransition {
                     signal: deactivated
