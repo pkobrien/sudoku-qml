@@ -1,50 +1,54 @@
 import QtQuick 2.4
+import QtQml.StateMachine 1.0 as DSM
 import "." as App
 
 App.SquareForm {
     id: square
 
+    property int boxIndex
+    property int columnIndex
+    property int rowIndex
+
+    property string digit: ""
+
+    signal activated()
+    signal deactivated()
+    signal puzzleReset()
+    signal puzzleSetup()
+    signal puzzleSolved()
+
+    signal deletePressed()
+    signal digitPressed()
+
     width: dp(48)
     height: dp(48)
 
     border.width: dp(1)
-    solution.font.pixelSize: dp(30)
-
-    property var cell: null
-
-    property int boxIndex
-    property int columnIndex
-    property int rowIndex
+    label.font.pixelSize: dp(30)
 
     onCellChanged: {
         if (!cell) {
             return;
         }
-        entry.cell = cell;
         square.boxIndex = cell.box;
         square.columnIndex = cell.column;
         square.rowIndex = cell.row;
     }
 
-    entry.onFocusChanged: {
-        if (!entry.activeFocus && entry.text === "") {
-            square.state = "ENTRY-HIDDEN";
-        }
-    }
-
-    entry.onTextChanged: {
-        if (square.state !== "INIT") {
-            cell.update(entry.text);
-            entry.selectAll();
-        }
-    }
-
     mouseArea.onClicked: {
         App.Active.square = square;
-        if (state === "ENTRY-HIDDEN") {
-            state = "ENTRY-SHOWN";
+        focus = true;
+    }
+
+    Connections {
+        target: App.Active
+        onSquareChanged: {
+            if (square === App.Active.square) {
+                activated();
+            } else {
+                deactivated();
+            }
         }
-        entry.focus = true;
     }
 
     Connections {
@@ -65,51 +69,112 @@ App.SquareForm {
     Connections {
         target: py.game
         onPuzzleReset: {
-            state = "INIT";
-            solution.text = "";
-            entry.text = "";
-            entry.focus = false;
-            state = "ENTRY-HIDDEN";
+            assigned = false;
+            label.text = "";
+            puzzleReset();
         }
         onPuzzleSetup: {
-            solution.text = cell.solved_value;
             if (cell.was_assigned) {
-                state = "ASSIGNED";
+                assigned = true;
+                label.text = cell.solved_value;
             }
+            puzzleSetup();
         }
         onPuzzleSolved: {
-            state = "PUZZLE-SOLVED";
+            puzzleSolved();
         }
     }
 
-    //    ScaleAnimator on scale {
-    //        from: 0.1;
-    //        to: 1;
-    //        duration: 4000;
-    //    }
+    DSM.StateMachine {
+        id: sm
+
+        initialState: blankState
+
+        running: true
+
+        DSM.State {
+            id: blankState
+
+            DSM.SignalTransition {
+                signal: puzzleSetup
+                targetState: setupState
+            }
+        }
+
+        DSM.State {
+            id: setupState
+
+            initialState: inactiveState
+
+            DSM.SignalTransition {
+                signal: puzzleReset
+                targetState: blankState
+            }
+            DSM.SignalTransition {
+                signal: puzzleSolved
+                targetState: puzzleSolvedState
+            }
+
+            DSM.State {
+                id: activeState
+
+                onEntered: App.Active.digit = label.text;
+
+                onExited: App.Active.digit = "";
+
+                DSM.SignalTransition {
+                    signal: deactivated
+                    targetState: inactiveState
+                }
+                DSM.SignalTransition {
+                    signal: deletePressed
+                    guard: (!assigned)
+                    onTriggered: {
+                        cell.update("");
+                        label.text = "";
+                        App.Active.digit = "";
+                        digit = "";
+                    }
+                }
+                DSM.SignalTransition {
+                    signal: digitPressed
+                    guard: (!assigned)
+                    onTriggered: {
+                        cell.update(digit);
+                        label.text = digit;
+                        App.Active.digit = label.text;
+                    }
+                }
+            }
+
+            DSM.State {
+                id: inactiveState
+
+                DSM.SignalTransition {
+                    signal: activated
+                    targetState: activeState
+                }
+            }
+
+            DSM.State {
+                id: puzzleSolvedState
+
+                onEntered: {
+                    color = "Green";
+                    mouseArea.visible = false;
+                }
+            }
+        }
+    }
 
     focus: true
+    Keys.onDeletePressed: deletePressed();
     Keys.onPressed: {
         if (event.key === Qt.Key_Escape) {
-            App.Active.square = undefined;
-            entry.focus = false;
+            App.Active.reset();
+        } else if ("123456789".indexOf(event.text) !== -1) {
+            digit = event.text;
+            digitPressed();
         }
     }
-
-    transitions: [
-        Transition {
-            from: "INIT"; to: "*"
-            NumberAnimation {
-                id: squareAnimationX
-                target: square
-                property: "y"
-                duration: 500
-                easing.type: Easing.InOutBounce
-            }
-        },
-        Transition {
-            from: "*"; to: "PUZZLE-SOLVED"
-            ColorAnimation { target: solution; properties: "color"; duration: 2000 }
-        }
-    ]
 }

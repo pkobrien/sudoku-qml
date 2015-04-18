@@ -6,6 +6,11 @@ import "." as App
 Rectangle {
     id: square
 
+    property bool assigned: false
+    property bool selected: (App.Active.square === square)
+
+    property var cell: null
+
     width: 48
     height: 48
 
@@ -13,88 +18,41 @@ Rectangle {
     border.width: 1
     color: "transparent"
 
-    property alias entry: entry
     property alias hints: hintGrid.hints
+    property alias label: label
     property alias mouseArea: mouseArea
-    property alias solution: solution
-
-    App.Entry {
-        id: entry
-        anchors.centerIn: parent
-        visible: false
-    }
 
     App.HintGrid {
         id: hintGrid
         anchors.centerIn: parent
-        visible: false
+        visible: (App.Active.showHints && label.text === "")
+    }
+
+    Label {
+        id: label
+        anchors.fill: parent
+        font.bold: (square.assigned)
+        font.pixelSize: 30
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 
     MouseArea {
         id: mouseArea
-        anchors.fill: entry
-        cursorShape: Qt.PointingHandCursor
-        visible: false
-    }
-
-    Label {
-        id: solution
         anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        font.bold: true
-        font.pixelSize: 30
-        visible: false
     }
-
-//    DropShadow {
-//        id: shadow
-//        anchors.fill: solution
-//        color: "#80000000"
-//        horizontalOffset: 3
-//        verticalOffset: 3
-//        radius: 8.0
-//        samples: 16
-//        source: solution
-//        visible: solution.visible
-//    }
 
     states: [
         State {
-            name: "ASSIGNED"
-            PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: false}
-            PropertyChanges {target: mouseArea; visible: false}
-            PropertyChanges {target: solution; visible: true}
+            name: "MatchingDigit"
+            when: (!selected && App.Active.showHints && label.text !== "" &&
+                   label.text === App.Active.digit)
+            PropertyChanges { target: square; color: "Yellow" }
         },
         State {
-            name: "ENTRY-HIDDEN"
-            PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: App.Active.showHints}
-            PropertyChanges {target: mouseArea; visible: true}
-            PropertyChanges {target: solution; visible: false}
-        },
-        State {
-            name: "ENTRY-SHOWN"
-            PropertyChanges {target: entry; visible: true}
-            PropertyChanges {target: hintGrid; visible: false}
-            PropertyChanges {target: mouseArea; visible: true}
-            PropertyChanges {target: solution; visible: false}
-        },
-        State {
-            name: "INIT"
-            PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: App.Active.showHints}
-            PropertyChanges {target: mouseArea; visible: false}
-            PropertyChanges {target: solution; visible: false}
-            PropertyChanges {target: square; y: 0 - (square.height * 8)}
-        },
-        State {
-            name: "PUZZLE-SOLVED"
-            PropertyChanges {target: entry; visible: false}
-            PropertyChanges {target: hintGrid; visible: false}
-            PropertyChanges {target: mouseArea; visible: false}
-            PropertyChanges {target: solution; visible: true; color: "darkred"}
+            name: "Selected"
+            when: (selected)
+            PropertyChanges { target: square; color: "#cccccc" }
         }
     ]
 }

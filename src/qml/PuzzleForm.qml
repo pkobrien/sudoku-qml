@@ -20,6 +20,20 @@ Rectangle {
     property alias squares: grid.children
 
     Grid {
+        id: grid
+
+        anchors.centerIn: parent
+        columns: 9
+        rows: 9
+
+        Repeater {
+            model: 81
+
+            App.Square {  }
+        }
+    }
+
+    Grid {
         id: boxHighlights
 
         anchors.centerIn: parent
@@ -33,7 +47,8 @@ Rectangle {
                 width: grid.width / 3
                 height: grid.height / 3
                 border.color: "black"
-                isActive: App.Active.square ? App.Active.square.boxIndex === index : false
+                isActive: (App.Active.square) ?
+                          (App.Active.square.boxIndex === index) : false
             }
         }
     }
@@ -49,7 +64,8 @@ Rectangle {
             App.Highlight {
                 width: grid.width / 9
                 height: grid.height
-                isActive: App.Active.square ? App.Active.square.columnIndex === index : false
+                isActive: (App.Active.square) ?
+                          (App.Active.square.columnIndex === index) : false
             }
         }
     }
@@ -65,22 +81,9 @@ Rectangle {
             App.Highlight {
                 width: grid.width
                 height: grid.height / 9
-                isActive: App.Active.square ? App.Active.square.rowIndex === index : false
+                isActive: (App.Active.square) ?
+                          (App.Active.square.rowIndex === index) : false
             }
-        }
-    }
-
-    Grid {
-        id: grid
-
-        anchors.centerIn: parent
-        columns: 9
-        rows: 9
-
-        Repeater {
-            model: 81
-
-            App.Square {  }
         }
     }
 }

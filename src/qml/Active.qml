@@ -11,11 +11,19 @@ Candy.Object {
 
     property bool showHints: true
 
+    property string digit: ""
     property var square
+
+    function reset() {
+        digit = "";
+        square = undefined;
+    }
 
     Connections {
         target: py.game
-        onPuzzleReset: square = undefined;
-        onPuzzleSolved: square = undefined;
+
+        onPuzzleReset: reset();
+
+        onPuzzleSolved: reset();
     }
 }
