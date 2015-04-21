@@ -1,9 +1,8 @@
 pragma Singleton
 
 import QtQuick 2.4
-import Candy 1.0 as Candy
 
-Candy.Object {
+QtObject {
     id: activeSingleton
 
     property var appWindow
@@ -19,7 +18,7 @@ Candy.Object {
         square = undefined;
     }
 
-    Connections {
+    property Connections __connections: Connections {
         target: py.game
 
         onPuzzleReset: reset();

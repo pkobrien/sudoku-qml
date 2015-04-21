@@ -2,14 +2,10 @@ pragma Singleton
 
 import QtQuick 2.4
 import QtQuick.Controls 1.3
-import Candy 1.0 as Candy
 import "." as App
 
 QtObject {
     id: actionsSingleton
-
-//    property var awesome: Candy.FontAwesome
-//    property var fa: Candy.FontAwesome.icons
 
     property Action appQuitAction: Action {
         text: qsTr("E&xit")
@@ -35,14 +31,14 @@ QtObject {
     property Action scaleDownAction: Action {
         text: qsTr("Scale Down")
         onTriggered: {
-            Candy.Units.scaleFactor = Math.max(1.0, Candy.Units.scaleFactor - 1.0);
+            App.Units.scaleFactor = Math.max(1.0, App.Units.scaleFactor - 1.0);
         }
     }
 
     property Action scaleUpAction: Action {
         text: qsTr("Scale Up")
         onTriggered: {
-            Candy.Units.scaleFactor += 1.0;
+            App.Units.scaleFactor += 1.0;
         }
     }
 
