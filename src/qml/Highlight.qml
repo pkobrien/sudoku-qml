@@ -6,6 +6,10 @@ App.HighlightForm {
 
     border.width: dp(3)
 
+    property bool isActive: false
+
+    on: (App.Active.showHighlights && isActive)
+
     transitions: [
         Transition {
             from: "*"; to: "On"

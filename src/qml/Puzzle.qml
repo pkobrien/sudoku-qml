@@ -17,20 +17,18 @@ App.PuzzleForm {
         App.Actions.keyPressed(event, puzzle);
     }
 
-//    grid.add: Transition {
-//        NumberAnimation {
-//            id: boxAnimationX
-//            properties: "x"
-//            from: parent.width / 3
-//            duration: (Math.random() * 5000) + 500
-//            easing.type: Easing.OutBounce
-//        }
-//        NumberAnimation {
-//            id: boxAnimationY
-//            properties: "y"
-//            from: (parent.width / -2) - (Math.random() * 100)
-//            duration: (Math.random() * 5000) + 500
-//            easing.type: Easing.OutBounce
-//        }
-//    }
+    grid.add: Transition {
+        NumberAnimation {
+            properties: "x"
+            from: puzzle.width / 3
+            duration: (Math.random() * 5000) + 500
+            easing.type: Easing.OutBounce
+        }
+        NumberAnimation {
+            properties: "y"
+            from: (puzzle.width / -2) - (Math.random() * 100)
+            duration: (Math.random() * 5000) + 500
+            easing.type: Easing.OutBounce
+        }
+    }
 }

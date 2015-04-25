@@ -8,4 +8,8 @@ App.HintForm {
     height: dp(13)
 
     hintText.font.pixelSize: dp(10)
+
+    matchingDigit: (on && App.Active.showMatchingDigits && digit &&
+                    App.Active.square && digit === App.Active.square.digit)
+
 }

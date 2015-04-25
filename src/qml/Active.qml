@@ -9,7 +9,9 @@ QtObject {
 
     property var puzzle
 
+    property bool showHighlights: true
     property bool showHints: true
+    property bool showMatchingDigits: true
 
     property var square: null
 }

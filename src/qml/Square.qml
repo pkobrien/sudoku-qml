@@ -24,7 +24,7 @@ App.SquareForm {
 
     label.text: digit
 
-    matchingDigit: (!selected && App.Active.showHints && digit !== "" &&
+    matchingDigit: (!selected && App.Active.showMatchingDigits && digit &&
                     App.Active.square && digit === App.Active.square.digit)
 
     puzzleSolved: (puzzleSolvedState.active)
@@ -57,12 +57,12 @@ App.SquareForm {
         onHintsChanged: {
             // Hide all the hints and then turn on the valid ones.
             for (var i = 0; i < 9; i++) {
-                square.hints[i].state = "";
+                square.hints[i].on = false;
             }
             // square.cell.hints is a Python list of valid digits.
             for (var i = 0; i < square.cell.hints.length; i++) {
                 var index = square.cell.hints[i];
-                square.hints[index].state = "On";
+                square.hints[index].on = true;
             }
         }
     }
@@ -182,4 +182,15 @@ App.SquareForm {
             digitPressed();
         }
     }
+
+    transitions: [
+        Transition {
+            from: "*"; to: "PuzzleSolved"
+            ColorAnimation {
+                target: square
+                properties: "color"
+                duration: 2000
+            }
+        }
+    ]
 }

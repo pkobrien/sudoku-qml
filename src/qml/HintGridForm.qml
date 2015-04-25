@@ -21,7 +21,7 @@ Rectangle {
             model: 9
 
             Hint {
-                hintText.text: index + 1
+                digit: index + 1
             }
         }
     }

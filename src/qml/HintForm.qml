@@ -6,7 +6,12 @@ Rectangle {
 
     width: 13
     height: 13
-    color: "Transparent"
+    color: (matchingDigit) ? "Yellow" : "Transparent"
+
+    property string digit: "0"
+
+    property bool matchingDigit: false
+    property bool on: false
 
     property alias hintText: hintText
 
@@ -18,12 +23,13 @@ Rectangle {
         font.pixelSize: 10
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        text: "0"
+        text: digit
     }
 
     states: [
         State {
             name: "On"
+            when: (on)
             PropertyChanges { target: hintText; color: "#000000" }
         }
     ]
