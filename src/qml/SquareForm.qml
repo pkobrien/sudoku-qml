@@ -7,9 +7,10 @@ Rectangle {
     id: square
 
     property bool assigned: false
-    property bool selected: (App.Active.square === square)
-
-    property var cell: null
+    property bool matchingDigit: false
+    property bool puzzleSolved: false
+    property bool selected: false
+    property bool showHints: false
 
     width: 48
     height: 48
@@ -25,7 +26,7 @@ Rectangle {
     App.HintGrid {
         id: hintGrid
         anchors.centerIn: parent
-        visible: (App.Active.showHints && label.text === "")
+        visible: (showHints)
     }
 
     Label {
@@ -35,6 +36,7 @@ Rectangle {
         font.pixelSize: 30
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
+        text: "9"
     }
 
     MouseArea {
@@ -45,9 +47,14 @@ Rectangle {
     states: [
         State {
             name: "MatchingDigit"
-            when: (!selected && App.Active.showHints && label.text !== "" &&
-                   label.text === App.Active.digit)
+            when: (matchingDigit)
             PropertyChanges { target: square; color: "Yellow" }
+        },
+        State {
+            name: "PuzzleSolved"
+            when: (puzzleSolved)
+            PropertyChanges { target: mouseArea; visible: false }
+            PropertyChanges { target: square; color: "Green" }
         },
         State {
             name: "Selected"

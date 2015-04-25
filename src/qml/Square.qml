@@ -9,8 +9,6 @@ App.SquareForm {
     property int columnIndex
     property int rowIndex
 
-    property string digit: ""
-
     signal deletePressed()
     signal digitPressed()
 
@@ -19,6 +17,21 @@ App.SquareForm {
 
     border.width: dp(1)
     label.font.pixelSize: dp(30)
+
+    property var cell: null
+
+    property string digit: ""
+
+    label.text: digit
+
+    matchingDigit: (!selected && App.Active.showHints && digit !== "" &&
+                    App.Active.square && digit === App.Active.square.digit)
+
+    puzzleSolved: (puzzleSolvedState.active)
+
+    selected: (App.Active.square === square)
+
+    showHints: (App.Active.showHints && digit === "")
 
     onCellChanged: {
         if (!cell) {
@@ -30,9 +43,13 @@ App.SquareForm {
     }
 
     mouseArea.onClicked: {
-        App.Active.reset();
-        App.Active.square = square;
-        focus = true;
+        square.select();
+    }
+
+    Connections {
+        target: py.game
+        onPuzzleReset: square.unselect();
+        onPuzzleSolved: square.unselect();
     }
 
     Connections {
@@ -50,38 +67,35 @@ App.SquareForm {
         }
     }
 
-    function activate() {
-        App.Active.digit = label.text;
-    }
-
     function clear() {
-        cell.update("");
-        label.text = "";
-        App.Active.digit = "";
         digit = "";
-    }
-
-    function puzzleSolved() {
-        color = "Green";
-        mouseArea.visible = false;
+        cell.update(digit);
     }
 
     function reset() {
         assigned = false;
-        label.text = "";
+        digit = "";
+    }
+
+    function select() {
+        App.Active.square = square;
+        focus = true;
     }
 
     function setup() {
         if (cell.was_assigned) {
             assigned = true;
-            label.text = cell.solved_value;
+            digit = cell.solved_value;
         }
     }
 
+    function unselect() {
+        App.Active.square = null;
+    }
+
     function update() {
+        digit = keyInfo.digit;
         cell.update(digit);
-        label.text = digit;
-        App.Active.digit = digit;
     }
 
     DSM.StateMachine {
@@ -119,8 +133,6 @@ App.SquareForm {
             DSM.State {
                 id: activeState
 
-                onEntered: activate();
-
                 DSM.SignalTransition {
                     signal: selectedChanged
                     guard: (!selected)
@@ -150,19 +162,23 @@ App.SquareForm {
 
             DSM.State {
                 id: puzzleSolvedState
-
-                onEntered: puzzleSolved();
             }
         }
+    }
+
+    QtObject {
+        id: keyInfo
+
+        property string digit: ""
     }
 
     focus: true
     Keys.onDeletePressed: deletePressed();
     Keys.onPressed: {
         if (event.key === Qt.Key_Escape) {
-            App.Active.reset();
+            unselect();
         } else if ("123456789".indexOf(event.text) !== -1) {
-            digit = event.text;
+            keyInfo.digit = event.text;
             digitPressed();
         }
     }
