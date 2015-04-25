@@ -50,6 +50,40 @@ App.SquareForm {
         }
     }
 
+    function activate() {
+        App.Active.digit = label.text;
+    }
+
+    function clear() {
+        cell.update("");
+        label.text = "";
+        App.Active.digit = "";
+        digit = "";
+    }
+
+    function puzzleSolved() {
+        color = "Green";
+        mouseArea.visible = false;
+    }
+
+    function reset() {
+        assigned = false;
+        label.text = "";
+    }
+
+    function setup() {
+        if (cell.was_assigned) {
+            assigned = true;
+            label.text = cell.solved_value;
+        }
+    }
+
+    function update() {
+        cell.update(digit);
+        label.text = digit;
+        App.Active.digit = digit;
+    }
+
     DSM.StateMachine {
         id: sm
 
@@ -63,12 +97,7 @@ App.SquareForm {
             DSM.SignalTransition {
                 signal: py.game.puzzleSetup
                 targetState: setupState
-                onTriggered: {
-                    if (cell.was_assigned) {
-                        assigned = true;
-                        label.text = cell.solved_value;
-                    }
-                }
+                onTriggered: setup();
             }
         }
 
@@ -80,10 +109,7 @@ App.SquareForm {
             DSM.SignalTransition {
                 signal: py.game.puzzleReset
                 targetState: blankState
-                onTriggered: {
-                    assigned = false;
-                    label.text = "";
-                }
+                onTriggered: reset();
             }
             DSM.SignalTransition {
                 signal: py.game.puzzleSolved
@@ -93,7 +119,7 @@ App.SquareForm {
             DSM.State {
                 id: activeState
 
-                onEntered: App.Active.digit = label.text;
+                onEntered: activate();
 
                 DSM.SignalTransition {
                     signal: selectedChanged
@@ -103,21 +129,12 @@ App.SquareForm {
                 DSM.SignalTransition {
                     signal: deletePressed
                     guard: (!assigned)
-                    onTriggered: {
-                        cell.update("");
-                        label.text = "";
-                        App.Active.digit = "";
-                        digit = "";
-                    }
+                    onTriggered: clear();
                 }
                 DSM.SignalTransition {
                     signal: digitPressed
                     guard: (!assigned)
-                    onTriggered: {
-                        cell.update(digit);
-                        label.text = digit;
-                        App.Active.digit = label.text;
-                    }
+                    onTriggered: update();
                 }
             }
 
@@ -134,10 +151,7 @@ App.SquareForm {
             DSM.State {
                 id: puzzleSolvedState
 
-                onEntered: {
-                    color = "Green";
-                    mouseArea.visible = false;
-                }
+                onEntered: puzzleSolved();
             }
         }
     }
